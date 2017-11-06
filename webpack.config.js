@@ -36,7 +36,7 @@ module.exports = {
 				options: {
 					name: '[name].[ext]?[hash]',
 					outputPath: 'images/',
-					publicPath: '/static/assets/dist/',
+					publicPath: '/static/dist/',
 				}
 			}
 		]
