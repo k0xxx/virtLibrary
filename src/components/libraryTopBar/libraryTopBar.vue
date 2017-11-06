@@ -8,7 +8,7 @@
 							<img src='../../assets/images/libraryLogo.png' alt="">
 							<strong>Библиотеки</strong>
 						</router-link>
-						<router-link class="libraryTopBar-btn" :to="{ name: 'library'}">
+						<router-link class="libraryTopBar-btn" :to="{ name: 'profile'}">
 							<img src='../../assets/images/libraryArrow.png' alt="">
 							<span class="hidden-xs-down">Вернуться в профиль</span>
 						</router-link>

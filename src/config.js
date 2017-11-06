@@ -1,0 +1,1 @@
+export var baseAPI = 'http://localhost:3900/api/';

@@ -50,6 +50,7 @@ module.exports = {
 		}),
 		new CopyWebpackPlugin([
 			{ from: 'src/assets/images/style_library', to: 'style_library' },
+			{ from: 'src/assets/images/demo_models', to: 'demo_models' },
 			{ from: 'src/assets/models/', to: 'models' },
 		]),
 	],

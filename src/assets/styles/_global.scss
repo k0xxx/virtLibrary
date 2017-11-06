@@ -22,8 +22,8 @@ body {
     //background-color: #F5F5F5;
 }
 a {
-    color: #329d81;
-	text-decoration: none;
+    //color: #329d81;
+	text-decoration: none !important;
 }
 ul {
     margin: 0;
@@ -38,17 +38,25 @@ ul {
 // custom buttons
 .btn_link{
     display: inline-block;
-    background: #ae2877;
-    color: #fff;
     padding: 0.5rem;
     text-align: center;
     transition: all 0.3s ease;
-
-    &:hover,
-    &.hover {
-        background: #9e3071;
+    text-decoration: none;
+    &.bg-green {
+        background: #4e8a27;
         color: #fff;
-        text-decoration: none;
+        &:hover,
+        &.hover {
+            background: #679c44;
+        }
+    }
+    &.bg-purple{
+        background: #ae2877;
+        color: #fff;
+        &:hover,
+        &.hover {
+            background: #9e3071;
+        }
     }
 }
 

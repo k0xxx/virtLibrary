@@ -5,28 +5,28 @@
 				<router-link :to="{ name: 'viewer3D'}">3DViewer</router-link>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 mb-4">
-				<router-link class="libraryCatLink link-1" :to="{ name: 'demo_models'}">
+				<router-link class="libraryCatLink link-1" :to="{ name: 'demoModels'}">
 					<img src="../../assets/images/demoModels_logo_original.png" class="img-fluid" alt="">
 					<div class="libraryCatLink-shadow"></div>
 					<div class="catTitle">Демо модели Pogarskiy Design</div>
 				</router-link>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 mb-4">
-				<router-link class="libraryCatLink link-2" :to="{ name: 'style_library'}">
+				<router-link class="libraryCatLink link-2" :to="{ name: 'styleLibrary'}">
 					<img src="../../assets/images/styleLibrary_logo_original.png" class="img-fluid" alt="">
 					<div class="catTitle">Библиотека фасонов зубов Pogarskiy Design library</div>
 					<div class="libraryCatLink-shadow"></div>
 				</router-link>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 mb-4">
-				<router-link class="libraryCatLink link-3" :to="{ name: 'photo_bank'}">
+				<router-link class="libraryCatLink link-3" :to="{ name: 'photoBank'}">
 					<img src="../../assets/images/photoBank_logo_original.png" class="img-fluid" alt="">
 					<div class="catTitle">Фотобанк</div>
 					<div class="libraryCatLink-shadow"></div>
 				</router-link>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 mb-4">
-				<router-link class="libraryCatLink link-4" :to="{ name: 'bank_3d'}">
+				<router-link class="libraryCatLink link-4" :to="{ name: 'bank3d'}">
 					<img src="../../assets/images/bank3d_logo_original.png" class="img-fluid" alt="">
 					<div class="catTitle">Банк дентальных 3D моделей</div>
 					<div class="libraryCatLink-shadow"></div>
