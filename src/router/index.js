@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import libraryTopBar from '../components/libraryTopBar/libraryTopBar.vue'
+
 import library from '../components/library/library.vue'
 import demoModels from '../components/demoModels/demoModels.vue'
 import styleLibrary from '../components/styleLibrary/styleLibrary.vue'
@@ -16,14 +18,14 @@ var router =  new VueRouter({
 	mode: 'history', 
 	routes: [
 		{path: '/profile', name: 'profile'},
-		{path: '/viewer_3D', name: 'viewer3D', component: viewer3D},
-		{path: '/library', name: 'library', component: library},
-		{path: '/library/demo_models', name: 'demoModels', component: demoModels},
-		{path: '/library/style_library/:styleName', name: 'styleLibrary_item', component: styleLibrary_item},
-		{path: '/library/style_library', name: 'styleLibrary', component: styleLibrary},
-		{path: '/library/photo_bank', name: 'photoBank', component: photoBank},
-		{path: '/library/3d_bank', name: 'bank3d', component: bank3d},
-		{path: '/', component: library},
+		{path: '/viewer_3D', name: 'viewer3D', components: {default: viewer3D}},
+		{path: '/library', name: 'library', components: {default: library, topBar: libraryTopBar}},
+		{path: '/library/demo_models', name: 'demoModels', components: {default: demoModels, topBar: libraryTopBar}},
+		{path: '/library/style_library/:styleName', name: 'styleLibrary_item', components: {default: styleLibrary_item, topBar: libraryTopBar}},
+		{path: '/library/style_library', name: 'styleLibrary', components: {default: styleLibrary, topBar: libraryTopBar}},
+		{path: '/library/photo_bank', name: 'photoBank', components: {default: photoBank, topBar: libraryTopBar}},
+		{path: '/library/3d_bank', name: 'bank3d', components: {default: bank3d, topBar: libraryTopBar}},
+		{path: '/', components: {default: library, topBar: libraryTopBar}},
 	]
 });
 

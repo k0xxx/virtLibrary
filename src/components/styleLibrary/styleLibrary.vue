@@ -54,7 +54,7 @@ export default{
 				} else {
 					console.log('No more data in photolibrary');
 				}
-		  });
+		    });
 		},
 	},
 	created: function(){

@@ -1,9 +1,34 @@
 <template>
 	<div id="viewer3D">
-        <div class="viewerPanel">
-
+		<div id="controls">
+			<div class="container-fluid">
+				<div class="row listFilesDiv">
+					<div class="col-3">
+						<a href="/" class="viewerLogo">
+							<img src="../../assets/images/3dViewer/stl_viewer_logo.png" class="img-fluid" alt="">
+							Просмотр STL файлов
+						</a>    
+					</div>
+					<div class="col-8 text-right">
+						<a href="javascript:void(0)" onclick="toogleFilesList();">Список файлов</a>
+						<ul id="stlFilesList"></ul>
+					</div>
+					<div class="col-1">
+						<a href="/#demoModels">
+							<img src="../../assets/images/3dViewer/stl_viewer_close.png" class="img-fluid" alt="">
+						</a>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div id="rendererContainer" ref="rendererContainer"></div>
+		<div id="rendererContainer" ref="rendererContainer">
+			<div id="dentalLoader" class="loader">
+				<div class="dentalBotLoader">
+					<div class="dentalBotLoader-loader"></div>
+					<img src="../../assets/images/3dViewer/bot_loader.png" class="dentalBotLoader-image" alt="colleagial loader">
+				</div>
+			</div>
+		</div>
     </div>
 </template>
 <script>
@@ -25,6 +50,12 @@ export default{
 			renderer: null,
 			rendererContainer: null,
 			mainGroup: null,
+			centerPoint: {
+				x: 0, y: 0, z: 0, xArray: [], yArray: [], zArray: []
+			},
+			three: {},
+			loader: {},
+			
 			stlFiles: [
 				{name: 'up', url: 'models/Untitled_KJYjLvT.stl'},
 				{name: 'low', url: 'models/Maxillary_oAXQjqt_WJP35eg.stl'},
@@ -35,31 +66,37 @@ export default{
 	methods: {
 		init(){
 			this.scene = new THREE.Scene();
-			
-			//console.log(document.querySelector('#rendererContainer'));
-
-			//this.rendererContainer = document.querySelector('#rendererContainer');
-			//console.log(this.rendererContainer);
+			this.addCamera();
+			this.addAxes();
+			this.addRenderer();
+			this.addControls();
+			this.addLight();
+			this.addMainGroup();
+			this.chekStlFiles();
+			this.animate();
+		},
+		addCamera(){
 			// Обьявление камеры
 			this.camera = new THREE.PerspectiveCamera(45, this.rendererContainer.clientWidth / this.rendererContainer.clientHeight, 1, 1000);
 			this.camera.position.set(-75, 75, 75);
 			this.camera.lookAt(this.scene.position);
-	
+		},
+		addAxes(){
 			// Добавление осей координат (Опционально)
 			var axes = new THREE.AxisHelper( 20 );
 			this.scene.add(axes);
-
+		},
+		addRenderer(){
+			// Обьявление области рендеринга
 			this.renderer = new THREE.WebGLRenderer({ alpha: true });
 			this.renderer.setSize( this.rendererContainer.clientWidth, this.rendererContainer.clientHeight );
 			this.rendererContainer.appendChild( this.renderer.domElement );
 			this.renderer.setClearColor(0x423C63, 0);
-	
+		},
+		addControls(){
 			// Добавление управления
-			/*controls = new THREE.OrbitControls( camera, renderer.domElement );
-			controls.addEventListener( 'change', render );
-			controls.enableZoom = true;*/
-	
 			this.controls = new TrackballControls( this.camera, this.rendererContainer );
+			console.log(this.controls);
 			this.controls.rotateSpeed = 4.0;
 			this.controls.zoomSpeed = 4.0;
 			this.controls.panSpeed = 0.8;
@@ -69,15 +106,21 @@ export default{
 			this.controls.dynamicDampingFactor = 0.3;
 			//this.controls.keys = [ 65, 83, 68 ];
 			this.controls.addEventListener( 'change', this.render );
-			
-			//Добавление источников света
-			this.addLight();
-
+		},
+		addLight(){
+			// Добавление источников света
+			this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.9 );
+			this.scene.add(this.directionalLight);
+			let light = new THREE.AmbientLight( 0x282828 ); // soft white light
+			this.scene.add( light );
+		},
+		addMainGroup(){
 			// Добавление основной группы
 			this.mainGroup = new THREE.Group();
 			this.mainGroup.updateMatrixWorld(true);
 			this.scene.add(this.mainGroup);
-	
+		},
+		chekStlFiles(){
 			// Проверка пред загруженных файлов
 			if(this.stlFiles){
 				for(var i=0; i<this.stlFiles.length; i++){
@@ -85,38 +128,24 @@ export default{
 				}
 			}
 		},
-		addLight(){
-			this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.9 );
-			this.scene.add(this.directionalLight);
-
-			var light = new THREE.AmbientLight( 0x282828 ); // soft white light
-			this.scene.add( light );
-		},
-		// Добавление файла в MainMesh
 		addToMainMesh(stlFile){
-			var loader = new STLLoader();
-			loader.load(stlFile.url, this.createNamedMesh(stlFile.name));
-		},
-		// Создание меша с именем
-		createNamedMesh(meshName){
-			console.log(this.mainGroup);
-			return function(geometry) {
+			// Добавление файла в MainMesh
+			//this.loader = new STLLoader();
+			//loader.load(stlFile.url, this.createNamedMesh(stlFile.name));
+			const loader = new STLLoader();
+			loader.load(stlFile.url, (geometry) => {
 				console.log(geometry);
-				
 				geometry.computeBoundingSphere();
 
 				var material = new THREE.MeshPhongMaterial({color: 0xFF8243, specular: 0x111111, shininess: 30});
 				
 				var mesh = new THREE.Mesh(geometry, material);
-
-				console.log(this.mainGroup);
-
-				this.mainGroup.add(mesh);
-
-				mesh.name = meshName;
+				mesh.name = stlFile.name;
 				mesh.castShadow = true;
 				mesh.receiveShadow = true;
 				
+				this.mainGroup.add(mesh);
+				console.log(this.mainGroup);
 				/*var stlFilesList = document.getElementById('stlFilesList');
 				var li = document.createElement('li');
 				li.className = "stlFileItem";
@@ -134,13 +163,38 @@ export default{
 				stlFilesList.appendChild(li);*/
 
 				this.render();
-			};
+			});
 		},
-		// Ререндеринг сцены
+		calcCenter(){
+			// Расчет центра всех моделей
+			this.centerPoint = {x: 0, y: 0, z: 0, xArray: [], yArray: [], zArray: []};
+			for(var i=0; i<this.mainGroup.children.length; i++){
+				this.centerPoint.xArray.push(this.mainGroup.children[i].geometry.boundingSphere.center.x);
+				this.centerPoint.yArray.push(this.mainGroup.children[i].geometry.boundingSphere.center.y);
+				this.centerPoint.zArray.push(this.mainGroup.children[i].geometry.boundingSphere.center.z);
+			}
+			if(this.centerPoint.xArray.length){
+				this.centerPoint.x = -[].reduce.call(this.centerPoint.xArray, function(p,c){return c+p;}) / this.centerPoint.xArray.length;
+			}
+			if(this.centerPoint.yArray.length){
+				this.centerPoint.y = -[].reduce.call(this.centerPoint.yArray, function(p,c){return c+p;}) / this.centerPoint.yArray.length;
+			}
+			if(this.centerPoint.zArray.length){
+				this.centerPoint.z = -[].reduce.call(this.centerPoint.zArray, function(p,c){return c+p;}) / this.centerPoint.zArray.length;
+			}
+			this.mainGroup.position.set( this.centerPoint.x, this.centerPoint.y, this.centerPoint.z );
+		},
 		render() {
+			// Ререндеринг сцены
 			this.renderer.render( this.scene, this.camera );
 			this.directionalLight.position.copy( this.camera.position );
-			//calcCenter();
+			this.calcCenter();
+		},
+		animate(){
+			// Анимация сцены
+			requestAnimationFrame( this.animate );
+			this.renderer.render(this.scene, this.camera);
+			this.controls.update();
 		}
 	},
 	mounted () {
@@ -150,21 +204,199 @@ export default{
 		}
 		this.init();
 	},
+	/*watch: {
+    	controls: function (newQuestion) {
+			console.log(newQuestion);
+			this.render();
+    	}
+  	},*/
 	created: function(){
 		
 	}
 }  
 </script>
 <style>
-#rendererContainer{
-	width: 100%;
-	height: 650px;
+#controls{
+    position: relative;
+    background-color: #1d1018;
+    height: 47px;
 }
+#controls .listFilesDiv > div > a{
+    display: inline-block;
+    padding: 0 15px;
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    line-height: 47px;
+}
+
+#stlFilesList{
+    margin: 0;
+    padding: 0;
+    display: none;
+    position: absolute;
+    top: 52px;
+    right: 0;
+    left: auto;
+    z-index: 1000;
+    float: left;
+    min-width: 12rem;
+    margin: .125rem 0 0;
+    padding: 0;
+    font-size: 1rem;
+    color: #292b2c;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .25rem;
+}
+#stlFilesList.show{
+    display: block;
+}
+#stlFilesList .stlFileItem {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    border-bottom: 1px solid #ddd;
+    line-height: 30px;
+}
+#stlFilesList .stlFileItem .stlFileControls{
+    display: flex;
+    flex-direction: row;
+    margin-right: 0.25rem;
+}
+#stlFilesList .stlFileItem .stlFileControls a{
+    content: '';
+    display: block;
+    width: 20px;
+    height: 30px;
+    background-size: cover;
+    margin-right: 0.25rem;
+}
+#stlFilesList .stlFileItem .stlFileControls a.active{
+    border-bottom: none !important;
+}
+#stlFilesList .stlFileItem .stlFileControls a.opacity_100{
+    background-image: url('../../assets/images/3dViewer/zub-1.png');
+}
+#stlFilesList .stlFileItem .stlFileControls a.opacity_100.active{
+    background-image: url('../../assets/images/3dViewer/zub-o-1.png');
+}
+#stlFilesList .stlFileItem .stlFileControls a.opacity_50{
+    background-image: url('../../assets/images/3dViewer/zub-2.png');
+}
+#stlFilesList .stlFileItem .stlFileControls a.opacity_50.active{
+    background-image: url('../../assets/images/3dViewer/zub-o-2.png');
+}
+#stlFilesList .stlFileItem .stlFileControls a.opacity_0{
+    background-image: url('../../assets/images/3dViewer/zub-3.png');
+}
+#stlFilesList .stlFileItem .stlFileControls a.opacity_0.active{
+    background-image: url('../../assets/images/3dViewer/zub-o-3.png');
+}
+#stlFilesList .stlFileItem .stlFilesColor{
+    display: flex;
+    align-items: center;
+    margin-left: 5px;
+}
+#stlFilesList .stlFileItem .stlFilesColor a{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    margin: 2px;
+    cursor: pointer;
+}
+#stlFilesList .stlFileItem .stlFilesColor a.active{
+    border: 2px solid #007bff;
+}
+#stlFilesList .stlFileItem .stlFilesColor a:nth-child(1) {
+    background-color: #87CEFA;
+}
+#stlFilesList .stlFileItem .stlFilesColor a:nth-child(2) {
+    background-color: #DB7093;
+}
+#stlFilesList .stlFileItem .stlFilesColor a:nth-child(3) {
+    background-color: #7851A9;
+}
+#stlFilesList .stlFileItem .stlFilesColor a:nth-child(4) {
+    background-color: #FF8243;
+}
+
+
+#rendererContainer{
+    display: block;
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 111px);
+}
+#rendererContainer .loader{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+}
+#rendererContainer .loader.show{
+    display: flex;
+}
+
+.dentalBotLoader{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.dentalBotLoader-loader {
+    color: #34c924;
+    font-size: 1.7rem;
+    margin: auto;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    position: absolute;
+    text-indent: -9999em;
+    -webkit-animation: dentalBotLoaderAnim 1.3s infinite linear;
+    animation: dentalBotLoaderAnim 1.3s infinite linear;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+}
+@-webkit-keyframes dentalBotLoaderAnim {
+    0%, 100% {box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;}
+    12.5% {box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;}
+    25% {box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;}
+    37.5% {box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;}
+    50% {box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;}
+    62.5% {box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;}
+    75% {box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;}
+    87.5% {box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;}
+}
+@keyframes dentalBotLoaderAnim {
+    0%, 100% {box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;}
+    12.5% {box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;}
+    25% {box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;}
+    37.5% {box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;}
+    50% {box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;}
+    62.5% {box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;}
+    75% {box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;}
+    87.5% {box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;}
+}
+
+
+
 #rendererContainer canvas{
-	background: rgb(176,174,196); /* Old browsers */
-	background: -moz-radial-gradient(center, ellipse cover, rgba(176,174,196,1) 0%, rgba(66,60,99,1) 100%); /* FF3.6-15 */
-	background: -webkit-radial-gradient(center, ellipse cover, rgba(176,174,196,1) 0%,rgba(66,60,99,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: radial-gradient(ellipse at center, rgba(176,174,196,1) 0%,rgba(66,60,99,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b0aec4', endColorstr='#423c63',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+    background: rgb(176,174,196); /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, rgba(176,174,196,1) 0%, rgba(66,60,99,1) 100%); /* FF3.6-15 */
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(176,174,196,1) 0%,rgba(66,60,99,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: radial-gradient(ellipse at center, rgba(176,174,196,1) 0%,rgba(66,60,99,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b0aec4', endColorstr='#423c63',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 </style>
