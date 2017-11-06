@@ -2,11 +2,11 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import library from '../components/library/library.vue'
-import demoModels from '../components/library/demoModels.vue'
-import styleLibrary from '../components/library/styleLibrary.vue'
-import styleLibrary_item from '../components/library/styleLibrary_item.vue'
-import photoBank from '../components/library/photoBank.vue'
-import bank3d from '../components/library/bank3d.vue'
+import demoModels from '../components/demoModels/demoModels.vue'
+import styleLibrary from '../components/styleLibrary/styleLibrary.vue'
+import styleLibrary_item from '../components/styleLibrary/styleLibrary_item.vue'
+import photoBank from '../components/photoBank/photoBank.vue'
+import bank3d from '../components/bank3d/bank3d.vue'
 
 import viewer3D from '../components/viewer3D/viewer3D.vue'
 
