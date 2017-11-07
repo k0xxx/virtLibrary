@@ -37,7 +37,7 @@
 			</div>
 		</div>
 		<div id="rendererContainer" ref="rendererContainer">
-			<div id="dentalLoader" class="loader">
+			<div id="dentalLoader" class="loader" v-if="loadingIcon">
 				<div class="dentalBotLoader">
 					<div class="dentalBotLoader-loader"></div>
 					<img src="../../assets/images/3dViewer/bot_loader.png" class="dentalBotLoader-image" alt="colleagial loader">
@@ -58,7 +58,7 @@ export default{
 	name: 'viewer3D',
 	data() {
 		return {
-			controlList: false,
+			loadingIcon: false,
 			scene: null,
 			camera: null,
 			controls: null,
@@ -69,21 +69,76 @@ export default{
 			centerPoint: {
 				x: 0, y: 0, z: 0, xArray: [], yArray: [], zArray: []
 			},
-			three: {},
-			loader: {},
 			
+			controlList: false,
 			stlFiles: [
-				{name: 'up', url: 'models/Untitled_KJYjLvT.stl'},
-				{name: 'low', url: 'models/Maxillary_oAXQjqt_WJP35eg.stl'},
+				{name: 'up12', url: 'models/31.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'lo2w', url: 'models/32.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l3ow', url: 'models/33.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'lo4w', url: 'models/34.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l5ow', url: 'models/35.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'lo6w', url: 'models/36.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l7ow', url: 'models/37.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l8ow', url: 'models/41_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l9ow', url: 'models/42_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'lo0w', url: 'models/43_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l1ow', url: 'models/44_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l2ow', url: 'models/45_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l3ow', url: 'models/46_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l4ow', url: 'models/47_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+
+				{name: 'l5ow', url: 'models/abat11.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l6ow', url: 'models/abat14.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l7ow', url: 'models/abat16.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l8ow', url: 'models/abat21.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l9ow', url: 'models/abat24.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'l0ow', url: 'models/abat26.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				{name: 'low1', url: 'models/bridge.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
+				
+				{name: 'low2', url: 'models/imol_16.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
+				{name: 'low3', url: 'models/impl14.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
+				{name: 'low4', url: 'models/impl26.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
+				{name: 'low5', url: 'models/impl_21.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
+				{name: 'low6', url: 'models/impl__11.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
+				{name: 'low7', url: 'models/impl__24.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
+				
+				{name: 'low8', url: 'models/gum.stl', options: {material: 'phong', color: '#ffa8b7', specular: '#111111', shininess: '30'}},
+
+				{name: 'low9', url: 'models/Mandibulary.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: 50}},
+				{name: 'low0', url: 'models/skull_mesh.stl', options: {material: 'phong', color: '#efecd8', specular: '#000000', shininess: 0}},
 			],
-			centerPoint: {x: 0, y: 0, z: 0, xArray: [], yArray: [], zArray: []}
 		}
 	},
 	methods: {
+		creareLoading(){
+			var loadingManager = new THREE.LoadingManager();
+			loadingManager.onProgress = this.onProgress();
+			/*loadingManager.onProgress('asd', (geometry) => {
+				console.log('hi');
+			})*/
+			/*loadingManager.onStart = function(){
+				console.log('asd');
+			}
+			loadingManager.onProgress = function ( item, loaded, total ) {
+				console.log(loadingManager);
+				var progress = loaded / total;
+				console.log(progress);
+ 				if(progress == 1){
+					this.loadingIcon = false;
+				}
+			};
+			console.log(loadingManager);*/
+		},
+		onProgress(item, loaded, total){
+			console.log('onProgress');
+			var progress = loaded / total;
+				console.log(progress);
+		},
 		init(){
+			this.creareLoading();
 			this.scene = new THREE.Scene();
 			this.addCamera();
-			this.addAxes();
+			//this.addAxes();
 			this.addRenderer();
 			this.addControls();
 			this.addLight();
@@ -146,37 +201,28 @@ export default{
 		},
 		addToMainMesh(stlFile){
 			// Добавление файла в MainMesh
-			//this.loader = new STLLoader();
-			//loader.load(stlFile.url, this.createNamedMesh(stlFile.name));
 			const loader = new STLLoader();
 			loader.load(stlFile.url, (geometry) => {
 				console.log(geometry);
 				geometry.computeBoundingSphere();
-
-				var material = new THREE.MeshPhongMaterial({color: 0xFF8243, specular: 0x111111, shininess: 30});
 				
+				//var material = new THREE.MeshLambertMaterial( { color: 0xff6600});
+				//var material = new THREE.MeshPhongMaterial({color: 0xFF8243, specular: 0x111111, shininess: parseInt(stlFile.options.shininess), side:THREE.DoubleSide});
+				//material.color.setStyle(stlFile.options.color);
+				//material.specular.setStyle(stlFile.options.specular);
+				var material = new THREE.MeshStandardMaterial({color: 0xeeeeee, roughness: 1, metalness: 1, side:THREE.DoubleSide});
+/*{color: '#ffffff', roughness: 1, metalness: 1,
+					roughnessMap: 1,
+					metalnessMap: 1,
+					envMap: 1,
+					envMapIntensity: 1,
+}*/
 				var mesh = new THREE.Mesh(geometry, material);
 				mesh.name = stlFile.name;
 				mesh.castShadow = true;
 				mesh.receiveShadow = true;
 				
 				this.mainGroup.add(mesh);
-				console.log(this.mainGroup);
-				/*var stlFilesList = document.getElementById('stlFilesList');
-				var li = document.createElement('li');
-				li.className = "stlFileItem";
-				var editor = '<div class="stlFileControls">'
-						+'		<a href="#" data-name="'+meshName+'" data-type="1" onclick="changeOpacity(this); return false;" class="opacity_1 active"></a>'
-						+'		<a href="#" data-name="'+meshName+'" data-type="05" onclick="changeOpacity(this); return false;" class="opacity_0_5"></a>'
-						+'		<a href="#" data-name="'+meshName+'" data-type="0" onclick="changeOpacity(this); return false;" class="opacity_0"></a>'
-						+'	</div>'
-						+'	<span class="text_on_dropdown">'+meshName+'</span>'
-						+'	<a href="#" data-name="'+meshName+'" data-color="0xDB7093" onclick="changeColor(this)">Розовый</a>'
-						+'	<a href="#" data-name="'+meshName+'" data-color="0xFF8243" onclick="changeColor(this)">Оранжевый</a>'
-						+'	<a href="#" data-name="'+meshName+'" data-color="0x7851A9" onclick="changeColor(this)">Фиолетовый</a>'
-						+'	<a href="#" data-name="'+meshName+'" onclick="deleteFile(this); return false;"><i class="fa fa-close ml-1"></i></a>';
-				li.innerHTML = editor;
-				stlFilesList.appendChild(li);*/
 
 				this.render();
 			});
@@ -234,12 +280,6 @@ export default{
 		}
 		this.init();
 	},
-	/*watch: {
-    	controls: function (newQuestion) {
-			console.log(newQuestion);
-			this.render();
-    	}
-  	},*/
 	created: function(){
 		window.addEventListener('resize', this.resize, false);
 	}
@@ -363,7 +403,7 @@ export default{
     height: calc(100vh - 111px);
 }
 #rendererContainer .loader{
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
@@ -373,9 +413,6 @@ export default{
     right: 0;
     background: rgba(0, 0, 0, 0.6);
     z-index: 9999;
-}
-#rendererContainer .loader.show{
-    display: flex;
 }
 
 .dentalBotLoader{
