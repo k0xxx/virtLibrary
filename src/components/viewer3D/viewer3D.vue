@@ -10,8 +10,23 @@
 						</a>    
 					</div>
 					<div class="col-8 text-right">
-						<a href="javascript:void(0)" onclick="toogleFilesList();">Список файлов</a>
-						<ul id="stlFilesList"></ul>
+						<a href="#" v-on:click="toogleControls">Список файлов</a>
+						<ul id="stlFilesList" v-bind:class="{ show : controlList }">
+							<li class="stlFileItem">
+								<div class="stlFileControls">
+									<a href="#" class="opacity_100"></a>
+									<a href="#" class="opacity_50"></a>
+									<a href="#" class="opacity_0"></a>
+								</div>
+								<span>asd</span>
+								<div class="stlFilesColor">
+									<a href="#"></a>
+									<a href="#"></a>
+									<a href="#"></a>
+									<a href="#"></a>
+								</div>
+							</li>
+						</ul>
 					</div>
 					<div class="col-1">
 						<a href="/#demoModels">
@@ -43,6 +58,7 @@ export default{
 	name: 'viewer3D',
 	data() {
 		return {
+			controlList: false,
 			scene: null,
 			camera: null,
 			controls: null,
@@ -195,6 +211,20 @@ export default{
 			requestAnimationFrame( this.animate );
 			this.renderer.render(this.scene, this.camera);
 			this.controls.update();
+		},
+		resize(){
+			if(this.camera && this.renderer) {
+				this.camera.aspect = this.rendererContainer.clientWidth / this.rendererContainer.clientHeight;
+				this.camera.updateProjectionMatrix();
+				this.renderer.setSize(this.rendererContainer.clientWidth, this.rendererContainer.clientHeight);
+			}
+		},
+		toogleControls(){
+			if(this.controlList){
+				this.controlList = false;
+			}else{
+				this.controlList = true;
+			}
 		}
 	},
 	mounted () {
@@ -211,7 +241,7 @@ export default{
     	}
   	},*/
 	created: function(){
-		
+		window.addEventListener('resize', this.resize, false);
 	}
 }  
 </script>
@@ -235,7 +265,7 @@ export default{
     padding: 0;
     display: none;
     position: absolute;
-    top: 52px;
+    top: 45px;
     right: 0;
     left: auto;
     z-index: 1000;
