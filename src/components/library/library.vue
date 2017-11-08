@@ -2,7 +2,9 @@
 	<div id="libraryCat" class="container">
 		<div class="row pt-4">
 			<div class="col-12">
-				<router-link :to="{ name: 'viewer3D'}">3DViewer</router-link>
+				<router-link :to="{ name: 'viewer3D'}" class="btn_link bg-purple">3DViewer</router-link>
+				<button type="button" v-on:click="showModal = true" class="btn_link bg-purple">Модальное окно</button>
+				<modal v-if="showModal"></modal>
 			</div>
 			<div class="col-12 col-sm-6 col-md-4 mb-4">
 				<router-link class="libraryCatLink link-1" :to="{ name: 'demoModels'}">
@@ -37,14 +39,15 @@
 </template>
 <script>
 //import { baseAPI } from '../../config.js';
+import modal from './../modals/modal.vue';
 export default{
 	name: 'library',
 	data() {
 		return {
-			
+			showModal: false,
 		}
 	},
-	//components: {newMessageModal},
+	components: {modal},
 	//props: ['contact', 'contactStatus', 'isSubscribe'],
 	
 }  
