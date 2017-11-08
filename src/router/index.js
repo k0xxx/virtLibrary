@@ -18,6 +18,7 @@ var router =  new VueRouter({
 	mode: 'history', 
 	routes: [
 		{path: '/profile', name: 'profile'},
+		{path: '/viewer_3D/:set', name: 'viewer3Dset', components: {default: viewer3D}},
 		{path: '/viewer_3D', name: 'viewer3D', components: {default: viewer3D}},
 		{path: '/library', name: 'library', components: {default: library, topBar: libraryTopBar}},
 		{path: '/library/demo_models', name: 'demoModels', components: {default: demoModels, topBar: libraryTopBar}},

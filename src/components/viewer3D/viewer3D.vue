@@ -10,16 +10,16 @@
 						</a>    
 					</div>
 					<div class="col-8 text-right">
-						<a href="#" v-on:click="toogleControls">Список файлов</a>
+						<a href="#" v-on:click.stop.prevent="toogleControls">Список файлов</a>
 						<ul id="stlFilesList" v-bind:class="{ show : controlList }">
-							<li class="stlFileItem">
+							<li class="stlFileItem" v-for="(model, index) in stlFiles" :key="index">
 								<div class="stlFileControls">
-									<a href="#" class="opacity_100"></a>
-									<a href="#" class="opacity_50"></a>
-									<a href="#" class="opacity_0"></a>
+									<div class="opacityIcon opacity_0"></div>
+									<input type="range" min="0" max="100" :data-model-name="model.name" v-model="model.options.opacity" v-on:input="selectOpacity" value="50">
+									<div class="opacityIcon opacity_100"></div>
 								</div>
-								<span>asd</span>
-								<div class="stlFilesColor">
+								<span>{{model.name}}</span>
+								<div class="stlFilesColor" v-if="materialParams">
 									<a href="#"></a>
 									<a href="#"></a>
 									<a href="#"></a>
@@ -29,7 +29,7 @@
 						</ul>
 					</div>
 					<div class="col-1">
-						<a href="/#demoModels">
+						<a href="#" v-on:click.stop.prevent="goBack">
 							<img src="../../assets/images/3dViewer/stl_viewer_close.png" class="img-fluid" alt="">
 						</a>
 					</div>
@@ -47,7 +47,7 @@
     </div>
 </template>
 <script>
-//import { baseAPI } from '../../config.js';
+import { baseAPI } from '../../config.js';
 var isWebglEnabled = require('detector-webgl');
 
 var THREE = require('three');
@@ -58,6 +58,9 @@ export default{
 	name: 'viewer3D',
 	data() {
 		return {
+			endpoint: baseAPI + 'viewer_3D/',
+			current3dSet: this.$route.params.set,
+			materialParams: true,
 			loadingIcon: false,
 			scene: null,
 			camera: null,
@@ -72,40 +75,7 @@ export default{
 			
 			controlList: false,
 			stlFiles: [
-				{name: 'up12', url: 'models/31.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'lo2w', url: 'models/32.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l3ow', url: 'models/33.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'lo4w', url: 'models/34.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l5ow', url: 'models/35.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'lo6w', url: 'models/36.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l7ow', url: 'models/37.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l8ow', url: 'models/41_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l9ow', url: 'models/42_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'lo0w', url: 'models/43_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l1ow', url: 'models/44_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l2ow', url: 'models/45_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l3ow', url: 'models/46_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l4ow', url: 'models/47_1.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-
-				{name: 'l5ow', url: 'models/abat11.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l6ow', url: 'models/abat14.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l7ow', url: 'models/abat16.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l8ow', url: 'models/abat21.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l9ow', url: 'models/abat24.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'l0ow', url: 'models/abat26.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
-				{name: 'low1', url: 'models/bridge.stl', options: {material: 'phong', color: '#fefefe', specular: '#111111', shininess: '30'}},
 				
-				{name: 'low2', url: 'models/imol_16.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
-				{name: 'low3', url: 'models/impl14.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
-				{name: 'low4', url: 'models/impl26.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
-				{name: 'low5', url: 'models/impl_21.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
-				{name: 'low6', url: 'models/impl__11.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
-				{name: 'low7', url: 'models/impl__24.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: '30'}},
-				
-				{name: 'low8', url: 'models/gum.stl', options: {material: 'phong', color: '#ffa8b7', specular: '#111111', shininess: '30'}},
-
-				{name: 'low9', url: 'models/Mandibulary.stl', options: {material: 'phong', color: '#dcdcdc', specular: '#111111', shininess: 50}},
-				{name: 'low0', url: 'models/skull_mesh.stl', options: {material: 'phong', color: '#efecd8', specular: '#000000', shininess: 0}},
 			],
 		}
 	},
@@ -182,7 +152,7 @@ export default{
 			// Добавление источников света
 			this.directionalLight = new THREE.DirectionalLight( 0xffffff, 0.9 );
 			this.scene.add(this.directionalLight);
-			let light = new THREE.AmbientLight( 0x282828 ); // soft white light
+			let light = new THREE.AmbientLight( 0x404040 ); // soft white light
 			this.scene.add( light );
 		},
 		addMainGroup(){
@@ -202,30 +172,67 @@ export default{
 		addToMainMesh(stlFile){
 			// Добавление файла в MainMesh
 			const loader = new STLLoader();
-			loader.load(stlFile.url, (geometry) => {
-				console.log(geometry);
+			loader.load(window.location.origin + '/' + stlFile.url, (geometry) => {
 				geometry.computeBoundingSphere();
 				
-				//var material = new THREE.MeshLambertMaterial( { color: 0xff6600});
-				//var material = new THREE.MeshPhongMaterial({color: 0xFF8243, specular: 0x111111, shininess: parseInt(stlFile.options.shininess), side:THREE.DoubleSide});
-				//material.color.setStyle(stlFile.options.color);
-				//material.specular.setStyle(stlFile.options.specular);
-				var material = new THREE.MeshStandardMaterial({color: 0xeeeeee, roughness: 1, metalness: 1, side:THREE.DoubleSide});
-/*{color: '#ffffff', roughness: 1, metalness: 1,
-					roughnessMap: 1,
-					metalnessMap: 1,
-					envMap: 1,
-					envMapIntensity: 1,
-}*/
+				var material = new THREE.MeshStandardMaterial({side:THREE.DoubleSide});
+
+				if(stlFile.options != undefined && stlFile.options){
+					switch(stlFile.options.material){
+						/*case 'custom':
+
+							break;*/
+						case 'bone':
+							material = new THREE.MeshStandardMaterial({color: 0xffefc9, roughness: 0.8, metalness: 0.3, side:THREE.DoubleSide}); //0xfcecc7
+							break;
+						case 'enamel':
+							material = new THREE.MeshStandardMaterial({color: 0xe3dccc, roughness: 0.4, metalness: 0.05, side:THREE.DoubleSide});
+							break;
+						case 'gum':
+							material = new THREE.MeshStandardMaterial({color: 0xac6870, roughness: 0.3, metalness: 0.05, side:THREE.DoubleSide});
+							break;
+						case 'steel':
+							material = new THREE.MeshStandardMaterial({color: 0xe1e1e1, roughness: 0.15, metalness: 0.35, side:THREE.DoubleSide});
+							break;
+						default:
+							material = new THREE.MeshStandardMaterial({color: 0xffffff, roughness: 1, metalness: 1, side:THREE.DoubleSide});
+					}
+				}
+
 				var mesh = new THREE.Mesh(geometry, material);
 				mesh.name = stlFile.name;
 				mesh.castShadow = true;
 				mesh.receiveShadow = true;
-				
+
 				this.mainGroup.add(mesh);
 
-				this.render();
+				// Если опции прозрачности нет, выполнить рендеринг сразу, если есть функция рендеринга выполняется в функции
+				if(typeof stlFile.options.opacity == 'number'){
+					this.setOpacity(stlFile.name, stlFile.options.opacity);
+				}else{
+					this.render();
+				}
+				
 			});
+		},
+		selectOpacity(event){
+			this.setOpacity(event.target.dataset.modelName, event.target.value);
+		},
+		setOpacity(modelName, opacityType){
+			var editModel = this.mainGroup.getObjectByName(modelName);
+			let opacity = parseInt(opacityType)/100;
+			if(opacity == 1){
+				editModel.material.transparent = false;
+				editModel.material.opacity = 1;
+				editModel.visible = true;
+			}else if(opacity == 0){
+				editModel.visible = false;
+			}else{
+				editModel.material.transparent = true;
+				editModel.material.opacity = opacity;
+				editModel.visible = true;
+			}
+			this.render();
 		},
 		calcCenter(){
 			// Расчет центра всех моделей
@@ -271,7 +278,24 @@ export default{
 			}else{
 				this.controlList = true;
 			}
-		}
+		},
+		goBack(){
+			//console.log(this.$router);
+			this.$router.go(-1);
+		},
+		get3dStyle() {
+			this.$http.get(this.endpoint + this.current3dSet).then((response) => {
+				if (response.data.style_3d) {
+					this.stlFiles = response.data.style_3d;
+					if(typeof response.data.isMaterialParams == 'boolean'){
+						this.materialParams = response.data.isMaterialParams;
+					}
+					this.chekStlFiles();
+				} else {
+					console.log('There is no 3D sets!');
+				}
+		    });
+		},
 	},
 	mounted () {
 		this.rendererContainer = this.$refs.rendererContainer;
@@ -282,6 +306,7 @@ export default{
 	},
 	created: function(){
 		window.addEventListener('resize', this.resize, false);
+		this.get3dStyle();
 	}
 }  
 </script>
@@ -322,6 +347,8 @@ export default{
     background-clip: padding-box;
     border: 1px solid rgba(0,0,0,.15);
     border-radius: .25rem;
+	max-height: calc(100vh - 110px);
+    overflow-y: auto;
 }
 #stlFilesList.show{
     display: block;
@@ -338,7 +365,12 @@ export default{
     flex-direction: row;
     margin-right: 0.25rem;
 }
-#stlFilesList .stlFileItem .stlFileControls a{
+#stlFilesList .stlFileItem .stlFileControls input{
+	display: inline-block;
+	width: 70px;
+	margin: 0 5px;
+}
+#stlFilesList .stlFileItem .stlFileControls div.opacityIcon{
     content: '';
     display: block;
     width: 20px;
@@ -346,26 +378,11 @@ export default{
     background-size: cover;
     margin-right: 0.25rem;
 }
-#stlFilesList .stlFileItem .stlFileControls a.active{
-    border-bottom: none !important;
-}
-#stlFilesList .stlFileItem .stlFileControls a.opacity_100{
+#stlFilesList .stlFileItem .stlFileControls div.opacityIcon.opacity_100{
     background-image: url('../../assets/images/3dViewer/zub-1.png');
 }
-#stlFilesList .stlFileItem .stlFileControls a.opacity_100.active{
-    background-image: url('../../assets/images/3dViewer/zub-o-1.png');
-}
-#stlFilesList .stlFileItem .stlFileControls a.opacity_50{
-    background-image: url('../../assets/images/3dViewer/zub-2.png');
-}
-#stlFilesList .stlFileItem .stlFileControls a.opacity_50.active{
-    background-image: url('../../assets/images/3dViewer/zub-o-2.png');
-}
-#stlFilesList .stlFileItem .stlFileControls a.opacity_0{
+#stlFilesList .stlFileItem .stlFileControls div.opacityIcon.opacity_0{
     background-image: url('../../assets/images/3dViewer/zub-3.png');
-}
-#stlFilesList .stlFileItem .stlFileControls a.opacity_0.active{
-    background-image: url('../../assets/images/3dViewer/zub-o-3.png');
 }
 #stlFilesList .stlFileItem .stlFilesColor{
     display: flex;

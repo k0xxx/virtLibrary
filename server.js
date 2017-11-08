@@ -104,6 +104,46 @@ app.route('/api/style_library')
 		res.json({styles_list: query});
 	})
 
+app.route('/api/viewer_3D/:set')
+	.get(function(req, res){
+		let styles_3d = {
+			'1.0': [
+				{name: 'up12', url: 'models/31.stl', options: {material: 'enamel'}},
+				{name: 'lo2w', url: 'models/32.stl', options: {material: 'enamel'}},
+				{name: 'l3ow', url: 'models/33.stl', options: {material: 'enamel'}},
+				{name: 'lo4w', url: 'models/34.stl', options: {material: 'enamel'}},
+				{name: 'l5ow', url: 'models/35.stl', options: {material: 'enamel'}},
+				{name: 'lo6w', url: 'models/36.stl', options: {material: 'enamel'}},
+				{name: 'l7ow', url: 'models/37.stl', options: {material: 'enamel'}},
+				{name: 'l8ow', url: 'models/41_1.stl', options: {material: 'enamel'}},
+				{name: 'l9ow', url: 'models/42_1.stl', options: {material: 'enamel'}},
+				{name: 'lo0w', url: 'models/43_1.stl', options: {material: 'enamel'}},
+				{name: 'l1ow', url: 'models/44_1.stl', options: {material: 'enamel'}},
+				{name: 'l2ow', url: 'models/45_1.stl', options: {material: 'enamel'}},
+				{name: 'l3ow', url: 'models/46_1.stl', options: {material: 'enamel'}},
+				{name: 'l4ow', url: 'models/47_1.stl', options: {material: 'enamel'}},
+				{name: 'Мост', url: 'models/bridge.stl', options: {material: 'enamel'}},
+				{name: 'l5ow', url: 'models/abat11.stl', options: {material: 'steel'}},
+				{name: 'l6ow', url: 'models/abat14.stl', options: {material: 'steel'}},
+				{name: 'l7ow', url: 'models/abat16.stl', options: {material: 'steel'}},
+				{name: 'l8ow', url: 'models/abat21.stl', options: {material: 'steel'}},
+				{name: 'l9ow', url: 'models/abat24.stl', options: {material: 'steel'}},
+				{name: 'l0ow', url: 'models/abat26.stl', options: {material: 'steel'}},
+				{name: 'low2', url: 'models/imol_16.stl', options: {material: 'steel'}},
+				{name: 'low3', url: 'models/impl14.stl', options: {material: 'steel'}},
+				{name: 'low4', url: 'models/impl26.stl', options: {material: 'steel'}},
+				{name: 'low5', url: 'models/impl_21.stl', options: {material: 'steel'}},
+				{name: 'low6', url: 'models/impl__11.stl', options: {material: 'steel'}},
+				{name: 'low7', url: 'models/impl__24.stl', options: {material: 'steel'}},
+				{name: 'Десна', url: 'models/gum.stl', options: {material: 'gum'}},
+				{name: 'Нижняя челюсть', url: 'models/Mandibulary.stl', options: {material: 'bone', opacity: 75}},
+				{name: 'Череп', url: 'models/skull_mesh.stl', options: {material: 'bone', opacity: 45}},
+			],
+		};
+		var query = styles_3d[req.params.set];
+		res.json({style_3d: query, isMaterialParams: false});
+	})
+
 app.get('/*', function(req, res){
 	res.sendFile(path.join(__dirname, './dist/index.html'));
 })

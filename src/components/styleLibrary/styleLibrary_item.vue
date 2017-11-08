@@ -24,7 +24,9 @@
                                     <a href="#" class="btn_link bg-purple w-100"><img src="../../assets/images/downloadLink.png" class="img-fluid" alt=""> Скачать</a>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <a href="#" class="btn_link bg-green w-100"><img src="../../assets/images/viewLink.png" class="img-fluid" alt=""> Просмотреть</a>
+                                    <router-link :to="{ name: 'viewer3Dset', params: { set: styleItem.title }}" class="btn_link bg-green w-100">
+                                        <img src="../../assets/images/viewLink.png" class="img-fluid" alt=""> Просмотреть
+                                    </router-link>
                                 </div>
                             </div>
                         </div>
