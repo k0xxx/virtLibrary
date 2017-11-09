@@ -31,6 +31,12 @@
     background: #3f1746;
     color: #fff;
 }
+.modal-container-header a{
+  color: #fff;
+  &:hover{
+    color: #bbb;
+  }
+}
 
 .modal-container-footer{
     display: flex;

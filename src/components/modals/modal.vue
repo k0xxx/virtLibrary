@@ -1,39 +1,40 @@
 <template>
     <transition name="modal">
-        <div class="modal-mask">
+        <div class="modal-mask" v-on:click="$emit('close')">
             <div class="modal-wrapper">
-                <div class="modal-container">
+                <div class="modal-container" v-on:click.stop>
                     <div class="modal-container-header">
-                        <span>Регистрация</span>
-                        <span>X</span>
+                        <span>Выбор типа наряда</span>
+                        <a href="#" v-on:click.stop.prevent="$emit('close')">
+                            <icon name="close"></icon>
+                        </a>
+                    </div>
+                    <div class="modal-container-body">
+                        <div class="container">
+                            <div class="row py-3 rigChoose-box">
+                                <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+                                    <h5>Упрощенный</h5>
+                                    <img src="./../../assets/images/modals/simpleRig.png" class="img-fluid" alt="">
+                                </div>
+                                <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+                                    <h5>Ортопедический</h5>
+                                    <img src="./../../assets/images/modals/ortopedicalRig.png" class="img-fluid" alt="">
+                                </div>
+                                <div class="col-4 d-flex flex-column justify-content-center align-items-center">
+                                    <h5>Ортодонтический</h5>
+                                    <img src="./../../assets/images/modals/ortodonticRig.png" class="img-fluid" alt="">
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-container-footer">
-                        <button class="btn_link bg-blue rounded">
-                            Сохранить >>
+                        <!--<button class="btn_link bg-blue rounded">
+                            Сохранить <icon name="angle-double-right" class="ml-1"></icon>
+                        </button>-->
+                        <button class="btn_link bg-blue-o rounded">
+                            Закрыть
                         </button>
                     </div>
-                    <!--<div id="closeModalRegister" class="d-flex" @click="$emit('close')">
-                        <icon name="times" scale="1"></icon> 
-                    </div>
-                    <div class="modal-body-register p-100">
-                        <div v-if="!register.isRegister">
-                            <span>Пожалуйста, укажите Ваш<br>E-mail и пароль</span>
-                            <form class="d-flex flex-column" v-on:submit.prevent="signup">
-                                <div class="input-container"> 
-                                    <label for="registerEmail" class="text-center text-w-bold">E-mail</label> 
-                                    <input type="email" name="email" id="registerEmail" v-model="register.email" class="input-large" placeholder="Введите Ваш e-mail"> 
-                                </div>
-                                <div class="input-container">
-                                    <label for="registerPassword" class="text-center text-w-bold">Пароль</label>
-                                    <input type="password" name="password" id="registerPassword" v-model="register.password" class="input-large" placeholder="Введите Ваш пароль"> 
-                                </div>
-                                <button type="submit" class="btn-primary btn-xlarge mt-100">Зарегестрироваться</button>
-                            </form>
-                        </div>
-                        <div v-else>
-                            Вы зарегистрированы! Пожалуйста проверте свою почту для подтверждения регистрации!
-                        </div>
-                    </div>-->
                 </div>
             </div>
         </div>
@@ -53,3 +54,9 @@ export default {
 	}
 }
 </script> 
+<<style>
+.rigChoose-box > div:hover{
+    color: #282c96;
+    cursor: pointer;
+}
+</style>
