@@ -10,12 +10,15 @@
                         <span class="bannerBottom">
                             Demo Models <br> Pogarskiy Design
                         </span>
-                        <a href="#" class="btn_link bg-purple w-100">Читать о 3D моделях</a>
+                        <a href="#" class="btn_link bg-purple w-100" v-if="!showAbout" v-on:click.prevent.stop="showAbout = true">Читать о 3D моделях</a>
+                        <a href="#" class="btn_link bg-purple w-100" v-if="showAbout" v-on:click.prevent.stop="showAbout = false">
+                            <icon name="angle-double-left" class="mr-1"></icon>Вернуться к скачиванию
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container">
+        <div class="container" v-if="!showAbout">
             <div class="row mb-4">
                 <div class="col-6 col-md-4 col-lg-3 px-0">
                     <img src="../../assets/images/demo_models/demoModel_1_original.png" class="img-fluid" alt="">
@@ -43,12 +46,58 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-10 col-sm-8 col-md-6 mx-auto">
+                <div class="col-12 col-sm-8 col-md-6 mx-auto">
                     <a href="#" class="btn_link bg-green w-100">Просмотреть демо модели</a>
                 </div>
-                <div class="col-10 col-sm-8 col-md-6 mx-auto">
+                <div class="col-12 col-sm-8 col-md-6 mx-auto">
                     <a href="#" class="btn_link bg-purple w-100">Скачать демо модели в STL архивом</a>
                 </div>
+            </div>
+        </div>
+        <div class="container" v-else>
+            <div class="row pt-3">
+                <div class="col-12">
+                    <p>
+                        3D Демо модели от Pogarskiy Design были разработаны для конструирования дентальных моделей с разнообразными дефектами, 
+                        которые можно использовать для обучения и создания демонстрационных моделей. Демо модели представлены в виде набора файлов 
+                        в формате STL, в котором присутствуют основания моделей верхней и нижней челюсти и съемные элементы с зубами. Все элементы с 
+                        зубами выполнены в вариантах полной анатомии, редуцированной форме и в состоянии обработки зуба под частичную реставрацию. 
+                        Используя любой 3D  редактор, который позволяет работать с STL файлами, можно создать модель с любым дефектом, а так же 
+                        отмоделировать реставрацию или протез. Материализовать данную модель можно, как в разборном виде, так и в цельном, при помощи 
+                        3D печати или фрезеровки.
+                    </p>
+                </div>
+                <div class="col-12 text-center">
+                    <img src="./../../assets/images/demo_models/demoModelAbout-video.png" alt="" class="img-fluid">
+                </div>    
+                <div class="col-12">
+                    <p>
+                        Использование данных шаблонов целесообразно для разработки лабораториями или зубными техниками демонстрационных моделей 
+                        и предлагаемых конструкций. Демо модели имеют классическую форму и легко форматируются в 3D пространстве, что поможет 
+                        избежать подбора моделей с необходимыми клиническими случаями. Так же их можно использовать в процессе обучения и 
+                        практических занятий для моделирования реставраций и тестирования материалов. Данная разработка незаменима для начала 
+                        работы с 3D технологиями, начиная от моделирования и заканчивая 3D печатью.
+                    </p>
+                </div>
+                <div class="col-6 col-md-3">
+                    <img src="./../../assets/images/demo_models/demoModel_about_1.png" alt="" class="img-fluid">
+                </div>
+                <div class="col-6 col-md-3">
+                    <img src="./../../assets/images/demo_models/demoModel_about_2.png" alt="" class="img-fluid">
+                </div>
+                <div class="col-6 col-md-3">
+                    <img src="./../../assets/images/demo_models/demoModel_about_3.png" alt="" class="img-fluid">
+                </div>
+                <div class="col-6 col-md-3">
+                    <img src="./../../assets/images/demo_models/demoModel_about_4.png" alt="" class="img-fluid">
+                </div>
+                <div class="col-12">
+                    <p>
+                        3D Демо модели от Pogarskiy Design позволят воссоздавать огромное количество вариантов дефектов, методом комбинации разных 
+                        элементов. Такой подход может облегчить множество задач зуботехнических лабораторий, стоматологических кабинетов и 
+                        обучающих центров.
+                    </p>
+                </div>  
             </div>
         </div>
     </div>
@@ -59,7 +108,7 @@ export default{
 	name: 'demoModels',
 	data() {
 		return {
-			
+			showAbout: false,
 		}
 	},
 	//components: {newMessageModal},
