@@ -8,10 +8,10 @@
 							<img src='../../assets/images/libraryLogo.png' alt="">
 							<strong>Библиотеки</strong>
 						</router-link>
-						<router-link class="libraryTopBar-btn" :to="{ name: 'profile'}">
+						<a :href="origin + '/profile'" class="libraryTopBar-btn">
 							<img src='../../assets/images/libraryArrow.png' alt="">
 							<span class="hidden-xs-down">Вернуться в профиль</span>
-						</router-link>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -24,7 +24,7 @@ export default{
 	name: 'libraryTopBar',
 	data() {
 		return {
-
+			origin: window.location.origin,
 		}
 	},
 	//components: {newMessageModal},
