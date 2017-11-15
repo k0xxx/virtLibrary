@@ -1,6 +1,6 @@
 <template>
     <div id="libraryApp">
-        <mainTopBar></mainTopBar>
+        
         <router-view name="topBar"></router-view>
         <router-view></router-view>
     </div>
