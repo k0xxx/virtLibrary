@@ -12,7 +12,7 @@
 					<div class="col-8 text-right">
 						<a href="#" v-on:click.stop.prevent="toogleControls">Список файлов</a>
 						<ul id="stlFilesList" v-bind:class="{ show : controlList }">
-							<li class="stlFileItem" v-for="(model, index) in stlFiles" :key="index">
+							<li class="stlFileItem" v-if="!model.options.parent" v-for="(model, index) in stlFiles" :key="index">
 								<div class="stlFileControls">
 									<div class="opacityIcon opacity_0"></div>
 									<input type="range" min="0" max="100" :data-model-name="model.name" v-model="model.options.opacity" v-on:input="selectOpacity" value="50">
@@ -25,6 +25,14 @@
 									<a href="#"></a>
 									<a href="#"></a>
 								</div>
+							</li>
+							<li class="stlFileItem" v-for="(group, index) in stlFilesGroups" :key="index">
+								<div class="stlFileControls">
+									<div class="opacityIcon opacity_0"></div>
+									<input type="range" min="0" max="100" :data-group="index" v-model="group.value" v-on:input="selectOpacityGroup" value="50">
+									<div class="opacityIcon opacity_100"></div>
+								</div>
+								<span>{{index}}</span>
 							</li>
 						</ul>
 					</div>
@@ -74,9 +82,8 @@ export default{
 			},
 			
 			controlList: false,
-			stlFiles: [
-				
-			],
+			stlFiles: [],
+			stlFilesGroups: {},
 		}
 	},
 	methods: {
@@ -172,6 +179,7 @@ export default{
 		addToMainMesh(stlFile){
 			// Добавление файла в MainMesh
 			const loader = new STLLoader();
+			//remove for production
 			loader.load(window.location.origin + '/' + stlFile.url, (geometry) => {
 				geometry.computeBoundingSphere();
 				
@@ -206,6 +214,14 @@ export default{
 
 				this.mainGroup.add(mesh);
 
+				if(typeof stlFile.options.parent == 'string'){
+					if(!this.stlFilesGroups[stlFile.options.parent]){
+						this.stlFilesGroups[stlFile.options.parent] = {value: '100', models: [stlFile.name]};
+					}else{
+						this.stlFilesGroups[stlFile.options.parent].models.push(stlFile.name);
+					}
+				}
+
 				// Если опции прозрачности нет, выполнить рендеринг сразу, если есть функция рендеринга выполняется в функции
 				if(typeof stlFile.options.opacity == 'number'){
 					this.setOpacity(stlFile.name, stlFile.options.opacity);
@@ -214,6 +230,29 @@ export default{
 				}
 				
 			});
+		},
+		selectOpacityGroup(event){
+			this.setOpacityGroup(event.target.dataset.group, event.target.value);
+		},
+		setOpacityGroup(groupName, opacityType){
+			let opacity = parseInt(opacityType)/100;
+			let models = this.stlFilesGroups[groupName].models;
+			
+			for(var i=0; i<models.length; i++){
+				var editModel = this.mainGroup.getObjectByName(models[i]);
+				if(opacity == 1){
+					editModel.material.transparent = false;
+					editModel.material.opacity = 1;
+					editModel.visible = true;
+				}else if(opacity == 0){
+					editModel.visible = false;
+				}else{
+					editModel.material.transparent = true;
+					editModel.material.opacity = opacity;
+					editModel.visible = true;
+				}
+			}
+			this.render();
 		},
 		selectOpacity(event){
 			this.setOpacity(event.target.dataset.modelName, event.target.value);
@@ -287,6 +326,7 @@ export default{
 			this.$http.get(this.endpoint + this.current3dSet).then((response) => {
 				if (response.data.style_3d) {
 					this.stlFiles = response.data.style_3d;
+					console.log(this.stlFiles);
 					if(typeof response.data.isMaterialParams == 'boolean'){
 						this.materialParams = response.data.isMaterialParams;
 					}
