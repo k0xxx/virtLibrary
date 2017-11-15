@@ -180,7 +180,7 @@ export default{
 			// Добавление файла в MainMesh
 			const loader = new STLLoader();
 			//remove for production
-			loader.load(window.location.origin + '/' + stlFile.url, (geometry) => {
+			loader.load(stlFile.url, (geometry) => {
 				geometry.computeBoundingSphere();
 				
 				var material = new THREE.MeshStandardMaterial({side:THREE.DoubleSide});
