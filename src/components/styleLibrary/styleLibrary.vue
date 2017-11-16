@@ -131,11 +131,6 @@ export default{
     width: calc(100% / 5);
     border: 2px solid #111;
 }
-/*@media (min-width: 320px){
-    #styleLibraryContent .styleLibrary-item{
-        width: calc(100% / 2);
-    }
-}*/
 @media (max-width: 768px){
     #styleLibraryContent .styleLibrary-item{
         width: calc(100% / 4);
