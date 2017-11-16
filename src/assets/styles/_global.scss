@@ -62,6 +62,14 @@ ul {
             background: #9e3071;
         }
     }
+    &.bg-orange{
+        background: #f7941d;
+        color: #fff;
+        &:hover,
+        &.hover {
+            background: #fdab4d;
+        }
+    }
     &.bg-blue{
         background: #282c96;
         color: #fff;
