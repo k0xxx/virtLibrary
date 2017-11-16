@@ -104,40 +104,65 @@ app.route('/api/style_library')
 		res.json({styles_list: query});
 	})
 
-app.route('/api/viewer_3D/:set')
+app.route('/api/demo_models')
 	.get(function(req, res){
+		let demo_models_list = [
+			{name: 'Демо модель 1', set: 'test1'},
+			{name: 'Демо модель 2', set: 'test2'},
+			{name: 'Демо модель 3', set: 'test3'},
+			{name: 'Демо модель 4', set: 'test4'},
+		];
+		res.json({demo_models_list: demo_models_list});
+	})
+
+app.route('/api/3dViewer/demoModels/:set')
+	.get(function(req, res){
+		let base = 'http://localhost:3900/static/dist/';
+		let demoStyles = {
+			'test1': [
+				{name: 'up12', url: base + 'models/31.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'lo2w', url: base + 'models/32.stl', options: {material: 'enamel', parent: 'Зубы'}},
+			]
+		}
+		var query = demoStyles[req.params.set];
+		res.json({style_3d: query, isMaterialParams: false});
+	});
+
+app.route('/api/3dViewer/:type/:set')
+	.get(function(req, res){
+		let base = 'http://localhost:3900/static/dist/';
 		let styles_3d = {
 			'1.0': [
-				{name: 'up12', url: 'models/31.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'lo2w', url: 'models/32.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l31ow', url: 'models/33.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'lo4w', url: 'models/34.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l5o2w', url: 'models/35.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'lo6w', url: 'models/36.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l7o3w', url: 'models/37.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l84ow', url: 'models/41_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l95ow', url: 'models/42_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'lo0w', url: 'models/43_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l1ow', url: 'models/44_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l2ow', url: 'models/45_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l3ow', url: 'models/46_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'l4ow', url: 'models/47_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
-				{name: 'Мост', url: 'models/bridge.stl', options: {material: 'enamel'}},
-				{name: 'l5ow', url: 'models/abat11.stl', options: {material: 'steel', parent: 'Железо'}},
-				{name: 'l6ow', url: 'models/abat14.stl', options: {material: 'steel', parent: 'Железо'}},
-				{name: 'l7ow', url: 'models/abat16.stl', options: {material: 'steel', parent: 'Железо'}},
-				{name: 'l8ow', url: 'models/abat21.stl', options: {material: 'steel', parent: 'Железо'}},
-				{name: 'l9ow', url: 'models/abat24.stl', options: {material: 'steel', parent: 'Железо'}},
-				{name: 'l0ow', url: 'models/abat26.stl', options: {material: 'steel', parent: 'Железо'}},
-				{name: 'low2', url: 'models/imol_16.stl', options: {material: 'steel', parent: 'Импланты'}},
-				{name: 'low3', url: 'models/impl14.stl', options: {material: 'steel', parent: 'Импланты'}},
-				{name: 'low4', url: 'models/impl26.stl', options: {material: 'steel', parent: 'Импланты'}},
-				{name: 'low5', url: 'models/impl_21.stl', options: {material: 'steel', parent: 'Импланты'}},
-				{name: 'low6', url: 'models/impl__11.stl', options: {material: 'steel', parent: 'Импланты'}},
-				{name: 'low7', url: 'models/impl__24.stl', options: {material: 'steel', parent: 'Импланты'}},
-				{name: 'Десна', url: 'models/gum.stl', options: {material: 'gum'}},
-				{name: 'Нижняя челюсть', url: 'models/Mandibulary.stl', options: {material: 'bone', opacity: 75}},
-				{name: 'Череп', url: 'models/skull_mesh.stl', options: {material: 'bone', opacity: 45}},
+				{name: 'up12', url: base + 'models/31.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'lo2w', url: base + 'models/32.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l31ow', url: base + 'models/33.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'lo4w', url: base + 'models/34.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l5o2w', url: base + 'models/35.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'lo6w', url: base + 'models/36.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l7o3w', url: base + 'models/37.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l84ow', url: base + 'models/41_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l95ow', url: base + 'models/42_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'lo0w', url: base + 'models/43_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l1ow', url: base + 'models/44_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l2ow', url: base + 'models/45_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l3ow', url: base + 'models/46_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'l4ow', url: base + 'models/47_1.stl', options: {material: 'enamel', parent: 'Зубы'}},
+				{name: 'Мост', url: base + 'models/bridge.stl', options: {material: 'enamel'}},
+				{name: 'l5ow', url: base + 'models/abat11.stl', options: {material: 'steel', parent: 'Железо'}},
+				{name: 'l6ow', url: base + 'models/abat14.stl', options: {material: 'steel', parent: 'Железо'}},
+				{name: 'l7ow', url: base + 'models/abat16.stl', options: {material: 'steel', parent: 'Железо'}},
+				{name: 'l8ow', url: base + 'models/abat21.stl', options: {material: 'steel', parent: 'Железо'}},
+				{name: 'l9ow', url: base + 'models/abat24.stl', options: {material: 'steel', parent: 'Железо'}},
+				{name: 'l0ow', url: base + 'models/abat26.stl', options: {material: 'steel', parent: 'Железо'}},
+				{name: 'low2', url: base + 'models/imol_16.stl', options: {material: 'steel', parent: 'Импланты'}},
+				{name: 'low3', url: base + 'models/impl14.stl', options: {material: 'steel', parent: 'Импланты'}},
+				{name: 'low4', url: base + 'models/impl26.stl', options: {material: 'steel', parent: 'Импланты'}},
+				{name: 'low5', url: base + 'models/impl_21.stl', options: {material: 'steel', parent: 'Импланты'}},
+				{name: 'low6', url: base + 'models/impl__11.stl', options: {material: 'steel', parent: 'Импланты'}},
+				{name: 'low7', url: base + 'models/impl__24.stl', options: {material: 'steel', parent: 'Импланты'}},
+				{name: 'Десна', url: base + 'models/gum.stl', options: {material: 'gum'}},
+				{name: 'Нижняя челюсть', url: base + 'models/Mandibulary.stl', options: {material: 'bone', opacity: 75}},
+				{name: 'Череп', url: base + 'models/skull_mesh.stl', options: {material: 'bone', opacity: 45}},
 			],
 		};
 		var query = styles_3d[req.params.set];

@@ -45,9 +45,16 @@
                     <img src="../../assets/images/demo_models/demoModel_8_original.png" class="img-fluid" alt="">
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-4">
                 <div class="col-12 col-sm-8 col-md-6 mx-auto">
-                    <a href="#" class="btn_link bg-green w-100">Просмотреть демо модели</a>
+                    <a href="#" class="btn_link bg-green w-100" v-on:click="demoView">Просмотреть демо модели</a>
+                    <ul class="demoViewer" v-if="showViewList">
+                        <li v-for="(model, index) in demoModelsList" :key="index">
+                            <router-link :to="{ name: 'viewer3Dset', params: { type: 'demoModels', set: model.set }}" class="btn_link bg-blue w-100">
+                                {{ model.name }}
+                            </router-link>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col-12 col-sm-8 col-md-6 mx-auto">
                     <a href="#" class="btn_link bg-purple w-100">Скачать демо модели в STL архивом</a>
@@ -103,14 +110,38 @@
     </div>
 </template>
 <script>
-//import { baseAPI } from '../../config.js';
+import { baseAPI } from '../../config.js';
 export default{
 	name: 'demoModels',
 	data() {
 		return {
+            endpoint: baseAPI + 'demo_models/',
 			showAbout: false,
+            showViewList: false,
+            demoModelsList: [],
 		}
 	},
+    methods: {
+        demoView(){
+            if(this.showViewList){
+                this.showViewList = false;
+            }else{
+                this.showViewList = true;
+            }
+        },
+        getDemoModels() {
+			this.$http.get(this.endpoint).then((response) => {
+                if(response.data.demo_models_list){
+                    this.demoModelsList = this.demoModelsList.concat(response.data.demo_models_list);
+                }else{
+                    console.log("We can't get current demo style!");
+                }
+		  });
+		},
+    },
+    created: function(){
+		this.getDemoModels();
+	}
 	//components: {newMessageModal},
 	//props: ['contact', 'contactStatus', 'isSubscribe'],
 	

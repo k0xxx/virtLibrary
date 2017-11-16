@@ -66,7 +66,8 @@ export default{
 	name: 'viewer3D',
 	data() {
 		return {
-			endpoint: baseAPI + 'viewer_3D/',
+			endpoint: baseAPI + '3dViewer/',
+			current3dType: this.$route.params.type,
 			current3dSet: this.$route.params.set,
 			materialParams: true,
 			loadingIcon: false,
@@ -323,7 +324,9 @@ export default{
 			this.$router.go(-1);
 		},
 		get3dStyle() {
-			this.$http.get(this.endpoint + this.current3dSet).then((response) => {
+			console.log(this.endpoint + this.current3dType + '/' +this.current3dSet);
+			this.$http.get(this.endpoint + this.current3dType + '/' +this.current3dSet).then((response) => {
+				console.log(response.data);
 				if (response.data.style_3d) {
 					this.stlFiles = response.data.style_3d;
 					console.log(this.stlFiles);
