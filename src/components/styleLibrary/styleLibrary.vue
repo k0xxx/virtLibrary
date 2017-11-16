@@ -131,6 +131,27 @@ export default{
     width: calc(100% / 5);
     border: 2px solid #111;
 }
+/*@media (min-width: 320px){
+    #styleLibraryContent .styleLibrary-item{
+        width: calc(100% / 2);
+    }
+}*/
+@media (max-width: 768px){
+    #styleLibraryContent .styleLibrary-item{
+        width: calc(100% / 4);
+    }
+}
+@media (max-width: 576px){
+    #styleLibraryContent .styleLibrary-item{
+        width: calc(100% / 3);
+    }
+}
+@media (max-width: 340px){
+    #styleLibraryContent .styleLibrary-item{
+        width: calc(100% / 2);
+    }
+}
+
 #styleLibraryContent .styleLibrary-item:hover{
     border: 2px solid #444;
 }
