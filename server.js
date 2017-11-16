@@ -128,6 +128,19 @@ app.route('/api/3dViewer/demoModels/:set')
 		res.json({style_3d: query, isMaterialParams: false});
 	});
 
+app.route('/api/file_download/:type/:set')
+	.get(function(req, res){
+		let base = 'http://localhost:3900/static/dist/';
+		let downloads = {
+			'1.0': [
+				{title: 'up12', type: 'stl', url: base + 'models/31.stl', size: '25Mb'},
+				{title: 'up13', type: 'stl', url: base + 'models/32.stl', size: '25Mb'},
+			]
+		}
+		var query = downloads[req.params.set];
+		res.json({download_list: query});
+	});
+
 app.route('/api/3dViewer/:type/:set')
 	.get(function(req, res){
 		let base = 'http://localhost:3900/static/dist/';

@@ -21,7 +21,9 @@
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-12 col-sm-6 mb-sm-3">
-                                    <a href="#" class="btn_link bg-purple w-100"><img src="../../assets/images/downloadLink.png" class="img-fluid" alt=""> Скачать</a>
+                                    <router-link :to="{ name: 'fileDownload', params: { type: 'styleLibrary', set: styleItem.title }}" class="btn_link bg-purple w-100">
+                                        <img src="../../assets/images/downloadLink.png" class="img-fluid" alt=""> Скачать
+                                    </router-link>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <router-link :to="{ name: 'viewer3Dset', params: { type: 'styleLibrary', set: styleItem.title }}" class="btn_link bg-green w-100">

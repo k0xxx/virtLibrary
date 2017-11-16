@@ -10,6 +10,8 @@ import styleLibrary_item from '../components/styleLibrary/styleLibrary_item.vue'
 import photoBank from '../components/photoBank/photoBank.vue'
 import bank3d from '../components/bank3d/bank3d.vue'
 
+import fileDownload from './../components/fileDownload/fileDownload.vue';
+
 import viewer3D from '../components/viewer3D/viewer3D.vue'
 
 Vue.use(VueRouter);
@@ -18,6 +20,7 @@ var router =  new VueRouter({
 	mode: 'history', 
 	routes: [
 		{path: '/profile', name: 'profile'},
+		{path: '/file_download/:type/:set', name: 'fileDownload', components: {default: fileDownload}},
 		{path: '/viewer_3D/:type/:set', name: 'viewer3Dset', components: {default: viewer3D}},
 		{path: '/viewer_3D', name: 'viewer3D', components: {default: viewer3D}},
 		{path: '/library', name: 'library', components: {default: library, topBar: libraryTopBar}},
