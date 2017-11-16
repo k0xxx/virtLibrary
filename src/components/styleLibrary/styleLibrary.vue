@@ -105,6 +105,7 @@ export default{
     min-height: 358px;
     background-size: cover;
     border-bottom: 3px solid #8f8f8f;
+    background-position: center center;
 }
 #styleLibrary .bannerTop{
     display: block;

@@ -155,6 +155,7 @@ export default{
     margin-top: 2px;
     min-height: 320px;
     background-size: cover;
+    background-position: center center;
 }
 #demoModels .bannerTop{
     display: block;
