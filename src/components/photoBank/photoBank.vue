@@ -16,7 +16,7 @@
         </div>
         <div class="container">
             <div class="row mb-4">
-                <photoBank_item v-for="(image_item, index) in photoBank_images" :key="index" v-bind:url="image_item.url"></photoBank_item>
+                <photoBank_item v-for="(image_item, index) in photoBank_images" :key="index" v-bind:thumbnail="image_item.thumbnail" v-bind:itemId="image_item.itemId"></photoBank_item>
                 <infinite-loading @infinite="getPhotos" ref="infiniteLoading">
                     <span slot="no-more"></span>
                 </infinite-loading>
@@ -45,6 +45,7 @@ export default{
 				params: {page: this.page}
 			}
 			this.$http.get(this.endpoint, options).then((response) => {
+                console.log(response);
 				if (response.data.photoBank_images.length) {
 					this.photoBank_images = this.photoBank_images.concat(response.data.photoBank_images);
                     this.page++;

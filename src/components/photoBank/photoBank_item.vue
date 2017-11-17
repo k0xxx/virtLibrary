@@ -1,8 +1,8 @@
 <template>
 	<div class="photoBank-item col-6 col-md-4 col-lg-3 px-0">
-        <img :src="url" class="img-fluid" alt="">
+        <img :src="thumbnail" class="img-fluid" alt="">
         <div class="cover">
-            <router-link :to="{ name: 'fileDownload', params: { type: 'photoBank', set: 'id' }}" class="actionLink">
+            <router-link :to="{ name: 'fileDownload', params: { type: 'photoBank', set: itemId }}" class="actionLink">
                 <img src="../../assets/images/downloadLink.png" alt=""> Скачать
             </router-link>
             <a href="#" class="actionLink"><img src="../../assets/images/viewLink.png" alt=""> Просмотреть</a>
@@ -12,7 +12,7 @@
 <script>
 export default{
     name: 'photoBank_item',
-    props: ['url'],
+    props: ['itemId', 'thumbnail'],
 	data() {
 		return {
 			

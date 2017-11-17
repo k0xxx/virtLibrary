@@ -45,6 +45,7 @@ export default{
 				params: {page: this.page}
 			}
 			this.$http.get(this.endpoint, options).then((response) => {
+                console.log(response);
 				if (response.data.bank3d_items.length) {
 					this.bank3d_items = this.bank3d_items.concat(response.data.bank3d_items);
                     this.page++;
