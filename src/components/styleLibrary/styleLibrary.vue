@@ -15,8 +15,13 @@
                             <icon name="angle-double-left" class="mr-1"></icon>Вернуться к фасонам
                         </a>
                         <a href="#" class="btn_link bg-green w-100" v-on:click.prevent.stop="showGlobalLink = true">Предоставить ссылку для просмотра</a>
-                        <div class="form-group mt-1 mb-3" v-if="showGlobalLink">
-                            <input type="text" class="form-control rounded-0" placeholder="Ссылка для просмотра" value="https://colleagial.org/viewer/styles/all">
+                        <div class="input-group globalLinkInput mt-1 mb-3" v-if="showGlobalLink">
+                            <input type="text" class="form-control" @focus="$event.target.select()" ref='globalLinkInput' v-model="globalLink" placeholder="Ссылка для просмотра">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="button" title="Скопировать в буфер обмена" v-on:click="globalLinkToClipboard">
+                                    <icon name="clipboard"></icon>
+                                </button>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -76,6 +81,7 @@ export default{
 			page: 1,
             endpoint: baseAPI + 'style_library',
             showGlobalLink: false,
+            globalLink: 'https://colleagial.org/viewer/styles/all',
 			styles_list: [],
 		}
 	},
@@ -94,7 +100,11 @@ export default{
 					console.log('No more data in photolibrary');
 				}
 		    });
-		},
+        },
+        globalLinkToClipboard(){
+            this.$refs.globalLinkInput.focus();
+            document.execCommand("Copy");
+        }
 	},
 	created: function(){
 		this.getStyles();
@@ -128,6 +138,17 @@ export default{
     font-size: 2rem;
     font-weight: bold;
     border-top: 1px solid #ff00c0;
+}
+#styleLibrary .globalLinkInput input,
+#styleLibrary .globalLinkInput button{
+    background: #333;
+    color: #fff;
+    border-radius: 0;
+    border-color: #777;
+}
+#styleLibrary .globalLinkInput button:hover{
+    background: #5a5a5a;
+    cursor: pointer;
 }
 #styleLibraryContent{
     background: #111;

@@ -1,21 +1,22 @@
 <template>
 	<div id="fileDownload">
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
-                <div class="downloadBlock col-12 d-flex flex-column align-items-center justify-content-center">
-                        <img src="./../../assets/images/LogoHeader.png" alt="" class="img-fluid mb-3">
-                        <ul class="col-8">
+                <div class="col-12 col-md-8 col-lg-6">
+                        <img src="./../../assets/images/file_download/downloadLogo.png" alt="" class="img-fluid mb-3">
+                        <ul class="downloadBlock w-100">
                             <li class="downloadBlock-item mb-2" v-for="(file, index) in download_list" :key="index">
-                                <a :href="file.url">
-                                    <img src="./../../assets/images/file_download/downloadIcon_stl.png" class="img-fluid mr-3" alt="">
+                                <a :href="file.url" v-bind:download="file.title">
+                                    <div class="fileIcon" v-bind:class="file.type">
+                                        <img src="./../../assets/images/file_download/downloadArrow.png" alt="">
+                                    </div>
                                     <div class="downloadBlock-item-info">
                                         <span class="download-title">{{ file.title }}</span>
-                                        <span class="download-fileInfo">{{ file.size }} Download</span>
+                                        <span class="download-fileInfo">{{ file.size | formatBytes }} Download</span>
                                     </div>
                                 </a>
                             </li>
                         </ul>
-                    
                 </div>
             </div>
         </div>
@@ -44,7 +45,17 @@ export default{
 				}
 		    });
 		},
-	},
+    },
+    filters: {
+        formatBytes: function (bytes) {
+            if(bytes == 0) return '0 Bytes';
+            var k = 1024,
+                dm = 2,
+                sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+                i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+        }
+    },
 	created: function(){
 		this.getDownloads();
     }
@@ -53,13 +64,21 @@ export default{
 <style>
 #fileDownload{
     width: 100%;
-    height: calc(100vh - 50px);
+    background-image: url(./../../assets/images/file_download/downloadBg.png);
+    position: fixed;
+    background-size: cover;
+    top: 50px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    padding-top: 5rem;
 }
-#fileDownload .downloadBlock{
+/*#fileDownload .downloadBlock{
     background-image: url(./../../assets/images/file_download/downloadBg.png);
     background-size: cover;
     min-height: calc(100vh - 50px);
-}
+}*/
 #fileDownload .downloadBlock .downloadBlock-item a{
     display: flex;
     background: #fff;
@@ -70,6 +89,47 @@ export default{
 #fileDownload .downloadBlock .downloadBlock-item a:hover{
     background: #eee;
 }
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon{
+    display: block;
+    position: relative;
+    width: 57px;
+    height: 68px;
+    margin-right: 1rem;
+    background-size: cover;
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon > img{
+    display: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: -5px;
+    right: -10px;
+}
+#fileDownload .downloadBlock .downloadBlock-item:hover .fileIcon > img{
+    display: block;
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon.stl{
+    background-image: url(./../../assets/images/file_download/downloadIcon_stl.png);
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon.rar{
+    background-image: url(./../../assets/images/file_download/downloadIcon_rar.png);
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon.zip{
+    background-image: url(./../../assets/images/file_download/downloadIcon_zip.png);
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon.pptx{
+    background-image: url(./../../assets/images/file_download/downloadIcon_pptx.png);
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon.psd{
+    background-image: url(./../../assets/images/file_download/downloadIcon_psd.png);
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon.jpg{
+    background-image: url(./../../assets/images/file_download/downloadIcon_psd.png);
+}
+#fileDownload .downloadBlock .downloadBlock-item .fileIcon.png{
+    background-image: url(./../../assets/images/file_download/downloadIcon_psd.png);
+}
+   
 #fileDownload .downloadBlock .downloadBlock-item .downloadBlock-item-info{
     display: flex;
     flex-direction: column;
