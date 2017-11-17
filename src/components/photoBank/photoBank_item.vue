@@ -2,7 +2,9 @@
 	<div class="photoBank-item col-6 col-md-4 col-lg-3 px-0">
         <img :src="url" class="img-fluid" alt="">
         <div class="cover">
-            <a href="#" class="actionLink"><img src="../../assets/images/downloadLink.png" alt=""> Скачать</a>
+            <router-link :to="{ name: 'fileDownload', params: { type: 'photoBank', set: 'id' }}" class="actionLink">
+                <img src="../../assets/images/downloadLink.png" alt=""> Скачать
+            </router-link>
             <a href="#" class="actionLink"><img src="../../assets/images/viewLink.png" alt=""> Просмотреть</a>
         </div>
     </div>

@@ -17,12 +17,16 @@
         <div class="container">
             <div class="row mb-4">
                 <photoBank_item v-for="(image_item, index) in photoBank_images" :key="index" v-bind:url="image_item.url"></photoBank_item>
+                <infinite-loading @infinite="getPhotos" ref="infiniteLoading">
+                    <span slot="no-more"></span>
+                </infinite-loading>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { baseAPI } from '../../config.js';
+import InfiniteLoading from "vue-infinite-loading"
 import photoBank_item from './photoBank_item.vue';
 
 export default{
@@ -34,24 +38,26 @@ export default{
 			photoBank_images: [],
 		}
 	},
-	components: {photoBank_item},
+	components: {photoBank_item, InfiniteLoading},
 	methods: {
-		getPhotos() {
+		getPhotos($state) {
 			var options = {
 				params: {page: this.page}
 			}
 			this.$http.get(this.endpoint, options).then((response) => {
 				if (response.data.photoBank_images.length) {
 					this.photoBank_images = this.photoBank_images.concat(response.data.photoBank_images);
-					this.page++;
+                    this.page++;
+                    $state.loaded();
 				} else {
+                    $state.complete();
 					console.log('No more data in photolibrary');
 				}
 		  });
 		},
 	},
 	created: function(){
-		this.getPhotos();
+		//this.getPhotos();
 	}
 }  
 </script>

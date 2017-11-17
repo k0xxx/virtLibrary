@@ -57,7 +57,9 @@
                     </ul>
                 </div>
                 <div class="col-12 col-sm-8 col-md-6 mx-auto">
-                    <a href="#" class="btn_link bg-purple w-100">Скачать демо модели в STL архивом</a>
+                    <router-link :to="{ name: 'fileDownload', params: { type: 'demoModels', set: 'all' }}" class="btn_link bg-purple w-100">
+                        Скачать демо модели в STL архивом
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -131,6 +133,9 @@ export default{
         },
         getDemoModels() {
 			this.$http.get(this.endpoint).then((response) => {
+                if(typeof response.data.demo_models_all != undefined){
+                    this.demoModelsAll = response.data.demo_models_all;
+                }
                 if(response.data.demo_models_list){
                     this.demoModelsList = this.demoModelsList.concat(response.data.demo_models_list);
                 }else{

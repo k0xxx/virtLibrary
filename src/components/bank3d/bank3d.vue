@@ -17,12 +17,16 @@
         <div class="container">
             <div class="row mb-4">
                 <bank3d_item v-for="(item_3d, index) in bank3d_items" :key="index" v-bind:url="item_3d.url"></bank3d_item>
+                <infinite-loading @infinite="get3dItems" ref="infiniteLoading">
+                    <span slot="no-more"></span>
+                </infinite-loading>
             </div>
         </div>
     </div>
 </template>
 <script>
 import { baseAPI } from '../../config.js';
+import InfiniteLoading from "vue-infinite-loading"
 import bank3d_item from './bank3d_item.vue';
 
 export default{
@@ -34,24 +38,26 @@ export default{
 			bank3d_items: [],
 		}
 	},
-	components: {bank3d_item},
+	components: {bank3d_item, InfiniteLoading},
 	methods: {
-		get3dItems() {
+		get3dItems($state) {
 			var options = {
 				params: {page: this.page}
 			}
 			this.$http.get(this.endpoint, options).then((response) => {
 				if (response.data.bank3d_items.length) {
 					this.bank3d_items = this.bank3d_items.concat(response.data.bank3d_items);
-					this.page++;
+                    this.page++;
+                    $state.loaded();
 				} else {
+                    $state.complete();
 					console.log('No more data in 3d bank');
 				}
 		  });
 		},
 	},
 	created: function(){
-		this.get3dItems();
+		//this.get3dItems();
 	}
 }  
 </script>

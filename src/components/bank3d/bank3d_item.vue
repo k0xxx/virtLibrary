@@ -2,8 +2,12 @@
     <div class="bank3d-item col-6 col-md-4 col-lg-3 px-0">
         <img :src="url" class="img-fluid" alt="">
         <div class="cover">
-            <a href="#" class="actionLink"><img src="../../assets/images/downloadLink.png" alt=""> Скачать</a>
-            <a href="#" class="actionLink"><img src="../../assets/images/viewLink.png" alt=""> Просмотреть</a>
+            <router-link :to="{ name: 'fileDownload', params: { type: 'bank3d', set: 'id' }}" class="actionLink">
+                <img src="../../assets/images/downloadLink.png" alt=""> Скачать
+            </router-link>
+            <router-link :to="{ name: 'viewer3Dset', params: { type: 'bank3d', set: 'id' }}" class="actionLink">
+                <img src="../../assets/images/viewLink.png" class="img-fluid" alt=""> Просмотреть
+            </router-link>
         </div>
     </div>
 </template>

@@ -82,7 +82,7 @@ export default{
 				params: {page: this.page}
 			}
 			this.$http.get(this.endpoint, options).then((response) => {
-                console.log(response.data);
+                console.log(response);
 				if (response.data.styles_list.length) {
 					this.styles_list = this.styles_list.concat(response.data.styles_list);
 					this.page++;
