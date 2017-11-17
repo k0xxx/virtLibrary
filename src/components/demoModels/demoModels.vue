@@ -47,7 +47,7 @@
             </div>
             <div class="row mb-4">
                 <div class="col-12 col-sm-8 col-md-6 mx-auto">
-                    <a href="#" class="btn_link bg-green w-100" v-on:click="demoView">Просмотреть демо модели</a>
+                    <a href="#" class="btn_link bg-green w-100" v-on:click.prevent.stop="demoView">Просмотреть демо модели</a>
                     <ul class="demoViewer" v-if="showViewList">
                         <li v-for="(model, index) in demoModelsList" :key="index">
                             <router-link :to="{ name: 'viewer3Dset', params: { type: 'demoModels', set: model.set }}" class="btn_link bg-blue w-100">

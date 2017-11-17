@@ -101,7 +101,7 @@ export default{
 }
 #styleLibraryContent_item{
     background: #000;
-    height: calc(100vh - 225px);
+    min-height: calc(100vh - 225px);
 }
 @media (max-width: 768px){
     #styleLibraryContent_item{

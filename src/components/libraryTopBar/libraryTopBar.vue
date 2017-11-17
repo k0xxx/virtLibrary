@@ -34,8 +34,14 @@ export default{
 </script>
 <style>
 #libraryTopBar{
-    height: 47px;
-    background: #1d1018;
+    position: fixed;
+	top: 45px;
+    left: 0;
+    right: 0;
+    width: 100%;
+	height: 47px;
+	background: #1d1018;
+	z-index: 9999;
 }
 #libraryTopBar .libraryTopBar-btn{
 	line-height: 45px;
