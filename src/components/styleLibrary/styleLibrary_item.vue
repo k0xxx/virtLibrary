@@ -61,8 +61,8 @@ export default{
 		getStyleItem() {
 			var options = {}
 			this.$http.get(this.endpoint + this.currentStyle, options).then((response) => {
+                console.log(response.data);
                 if(response.data.style_item){
-                    console.log(response.data.style_item);
                     this.styleItem.title = response.data.style_item.title;
                     this.styleItem.topBarImg = response.data.style_item.topBarImg;
                     this.styleItem.faceImg = response.data.style_item.faceImg;
