@@ -85,6 +85,7 @@ export default{
 			
 			controlList: false,
 			stlFiles: [],
+			stlFilesTotal: 0,
 			stlFilesGroups: {},
 		}
 	},
@@ -185,6 +186,8 @@ export default{
 		chekStlFiles(){
 			// Проверка пред загруженных файлов
 			if(this.stlFiles){
+				this.stlFilesTotal = 0;
+				this.loadingIcon = true;
 				for(var i=0; i<this.stlFiles.length; i++){
 					this.addToMainMesh(this.stlFiles[i]);
 				}
@@ -195,6 +198,11 @@ export default{
 			const loader = new STLLoader();
 			//remove for production
 			loader.load(stlFile.url, (geometry) => {
+				this.stlFilesTotal++;
+				if(this.stlFilesTotal == this.stlFiles.length){
+					this.loadingIcon = false;
+				}
+
 				geometry.computeBoundingSphere();
 				
 				var material = new THREE.MeshStandardMaterial({side:THREE.DoubleSide});
@@ -243,10 +251,15 @@ export default{
 					this.render();
 				}
 				
-			}, function(item, loaded, total){
+			}, (item) => {
+				/*var progress = item.loaded / item.total;
+				console.log(progress);
 				console.log(item);
-				console.log(loaded);
-				console.log(total);
+				if(progress == 1){
+					this.loadingIcon = false;
+				}else{
+					this.loadingIcon = true;
+				}*/
 			});
 		},
 		selectOpacityGroup(event){
