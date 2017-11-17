@@ -71,6 +71,7 @@ export default{
 			current3dSet: this.$route.params.set,
 			materialParams: true,
 			loadingIcon: false,
+			loadingManager: null,
 			scene: null,
 			camera: null,
 			controls: null,
@@ -88,16 +89,28 @@ export default{
 		}
 	},
 	methods: {
-		creareLoading(){
-			var loadingManager = new THREE.LoadingManager();
-			loadingManager.onProgress = this.onProgress();
-			/*loadingManager.onProgress('asd', (geometry) => {
+		//createLoading(){
+			//const loader = new STLLoader();
+			//remove for production
+			//console.log(loader);
+			/*this.loadingManager = new THREE.LoadingManager();
+			this.loadingManager.onProgress = function(){
+				alert('hi')
+			}
+			console.log(this.loadingManager);
+			/*this.loadingManager.onStart().then((response) => {
+                console.log(response);
+		    });*/
+			/*this.loadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+				console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+			};*/
+			/*this.loadingManager.onProgress('asd', (geometry) => {
 				console.log('hi');
 			})*/
-			/*loadingManager.onStart = function(){
+			/*this.loadingManager.onStart = function(){
 				console.log('asd');
 			}
-			loadingManager.onProgress = function ( item, loaded, total ) {
+			/*loadingManager.onProgress = function ( item, loaded, total ) {
 				console.log(loadingManager);
 				var progress = loaded / total;
 				console.log(progress);
@@ -106,14 +119,14 @@ export default{
 				}
 			};
 			console.log(loadingManager);*/
-		},
-		onProgress(item, loaded, total){
+		//},
+		/*onProgress(item, loaded, total){
 			console.log('onProgress');
 			var progress = loaded / total;
 				console.log(progress);
-		},
+		},*/
 		init(){
-			this.creareLoading();
+			//this.createLoading();
 			this.scene = new THREE.Scene();
 			this.addCamera();
 			//this.addAxes();
@@ -230,6 +243,10 @@ export default{
 					this.render();
 				}
 				
+			}, function(item, loaded, total){
+				console.log(item);
+				console.log(loaded);
+				console.log(total);
 			});
 		},
 		selectOpacityGroup(event){
@@ -344,8 +361,9 @@ export default{
 		this.rendererContainer = this.$refs.rendererContainer;
 		if(!isWebglEnabled){
 			console.log('webGL is not supported!');
+		}else{
+			this.init();
 		}
-		this.init();
 	},
 	created: function(){
 		window.addEventListener('resize', this.resize, false);
