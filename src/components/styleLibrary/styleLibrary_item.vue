@@ -2,12 +2,12 @@
 	<div id="styleLibrary_item">
         <div class="topTitle">
             <div class="container">
-                <div class="row">
+                <div class="row justify-content-between">
                     <div class="col-12 col-sm-8 col-md-6">
                         <span class="bannerTop">Pogarskiy Design library</span>
                         <span class="bannerBottom">Фасон № <strong>{{ styleItem.title }}</strong></span>
                     </div>
-                    <div class="col-3 col-sm-4 col-md-4 offset-md-2">
+                    <div class="col-3 col-sm-4 col-md-4">
                         <img :src="styleItem.topBarImg" class="img-fluid" alt="">
                     </div>
                 </div>
@@ -15,7 +15,7 @@
         </div>
         <div id="styleLibraryContent_item">
             <div class="container">
-                <div class="row">
+                <div class="row justify-content-between">
                     <div class="col-12 col-md-7">
                         <img :src="styleItem.faceImg" class="img-fluid" alt="">
                         <div class="container-fluid">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 offset-1">
+                    <div class="col-12 col-md-4">
                         <img :src="styleItem.previewImg" class="img-fluid" alt="">
                     </div>
                 </div>
@@ -101,6 +101,11 @@ export default{
 }
 #styleLibraryContent_item{
     background: #000;
-    height: calc(100vh - 250px);
+    height: calc(100vh - 225px);
+}
+@media (max-width: 768px){
+    #styleLibraryContent_item{
+        height: auto;
+    }
 }
 </style>
