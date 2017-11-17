@@ -45,7 +45,7 @@
 			</div>
 		</div>
 		<div id="rendererContainer" ref="rendererContainer">
-			<div id="dentalLoader" class="loader" v-if="loadingIcon">
+			<div id="dentalLoader" class="loaderFade" v-if="loadingIcon">
 				<div class="dentalBotLoader">
 					<div class="dentalBotLoader-loader"></div>
 					<img src="../../assets/images/3dViewer/bot_loader.png" class="dentalBotLoader-image" alt="colleagial loader">
@@ -493,7 +493,7 @@ export default{
     width: 100%;
     height: calc(100vh - 111px);
 }
-#rendererContainer .loader{
+#rendererContainer .loaderFade{
     display: flex;
     align-items: center;
     justify-content: center;
