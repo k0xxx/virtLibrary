@@ -15,13 +15,20 @@
                             <icon name="angle-double-left" class="mr-1"></icon>Вернуться к фасонам
                         </a>
                         <a href="#" class="btn_link bg-green w-100" v-on:click.prevent.stop="showGlobalLink = true">Предоставить ссылку для просмотра</a>
-                        <div class="input-group globalLinkInput mt-1 mb-3" v-if="showGlobalLink">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="globalLink" v-if="showGlobalLink">
+            <div class="container py-3">
+                <div class="row justify-content-center">
+                    <div class="col-10 globalLinkInput">
+                        <p>Воспользуйтесь ссылкой для просмотра основного изображения незарегистрированными пользователями</p>
+                        <div class="input-group">
                             <input type="text" class="form-control" @focus="$event.target.select()" ref='globalLinkInput' v-model="globalLink" placeholder="Ссылка для просмотра">
-                            <span class="input-group-btn">
-                                <button class="btn btn-secondary" type="button" title="Скопировать в буфер обмена" v-on:click="globalLinkToClipboard">
-                                    <icon name="clipboard"></icon>
-                                </button>
-                            </span>
+                            <button class="btn btn-secondary" type="button" title="Скопировать в буфер обмена" v-on:click="globalLinkToClipboard">
+                                Получить
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -81,7 +88,7 @@ export default{
 			page: 1,
             endpoint: baseAPI + 'style_library',
             showGlobalLink: false,
-            globalLink: 'https://colleagial.org/viewer/styles/all',
+            globalLink: 'https://colleagial.org/files/view/b0c7a957-23fb-4ca0-92d6-ecbcdd12754e/',
 			styles_list: [],
 		}
 	},
@@ -139,8 +146,15 @@ export default{
     font-weight: bold;
     border-top: 1px solid #ff00c0;
 }
-#styleLibrary .globalLinkInput input,
-#styleLibrary .globalLinkInput button{
+#globalLink{
+    background: #111;
+    border-bottom: 3px solid #8f8f8f;
+}
+#globalLink p {
+     color: #de8eca;
+}
+#globalLink .globalLinkInput input,
+#globalLink .globalLinkInput button{
     background: #333;
     color: #fff;
     border-radius: 0;
