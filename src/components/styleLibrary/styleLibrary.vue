@@ -14,7 +14,7 @@
                         <a href="#" class="btn_link bg-purple w-100 mb-3" v-if="showAbout" v-on:click.prevent.stop="showAbout = false">
                             <icon name="angle-double-left" class="mr-1"></icon>Вернуться к фасонам
                         </a>
-                        <a href="#" class="btn_link bg-green w-100">Предоставить ссылку для просмтра</a>
+                        <a href="#" class="btn_link bg-green w-100">Предоставить ссылку для просмотра</a>
                     </div>
                 </div>
             </div>

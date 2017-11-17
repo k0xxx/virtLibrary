@@ -5,7 +5,7 @@
                 <div class="row h-100">
                     <div class="col-12 col-md-6 col-lg-4 py-4 d-flex flex-column justify-content-between">
                         <span class="bannerTop">
-                            Обучающие и демонстрационные 3D модели
+                            <strong>3D</strong> визуализации
                         </span>
                         <a href="#" class="btn_link bg-orange w-100" v-if="!showAbout" v-on:click.prevent.stop="showAbout = true">Читать о 3D моделях</a>
                         <a href="#" class="btn_link bg-orange w-100" v-if="showAbout" v-on:click.prevent.stop="showAbout = false">
@@ -16,19 +16,58 @@
             </div>
         </div>
         <div class="container" v-if="!showAbout">
-            <div class="row py-4">
-                <div class="col-6 col-md-4 col-lg-4 viewusion-item">
+            <div class="row py-4" v-if="!currentTab">
+                <div class="col-6 col-md-4 col-lg-4 viewusion-item" v-on:click="currentTab = 'surgery'">
                     <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-item-1">Хирургия и имплантация</div>
+                    <div class="viewusion-item-content surgeryBg">Хирургия и <br> имплантация</div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-4 viewusion-item">
+                <div class="col-6 col-md-4 col-lg-4 viewusion-item" v-on:click="currentTab = 'orthodontics'">
                     <img src="../../assets/images/viewusion/orthodontics_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-item-2">Ортодонтия</div>
+                    <div class="viewusion-item-content orthodonticsBg">Ортодонтия</div>
                 </div>
-                <div class="col-6 col-md-4 col-lg-4 viewusion-item">
+                <div class="col-6 col-md-4 col-lg-4 viewusion-item" v-on:click="currentTab = 'orthopedics'">
                     <img src="../../assets/images/viewusion/orthopedics_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-item-3">Ортопедия, протезирование</div>
+                    <div class="viewusion-item-content orthopedicsBg">Ортопедия, <br> протезирование</div>
                 </div>
+            </div>
+            <div class="row no-gutters py-4" v-if="currentTab == 'surgery'">
+                <div class="col-12 viewusion-title surgeryBg">
+                    <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" class="img-fluid" alt="">
+                    <div class="viewusion-title-content">
+                        <span>Хирургия и <br> имплантация</span>
+                        <div class="viewusion-title-otherCategories">
+                            <img src="../../assets/images/viewusion/orthodontics_logo.png" v-on:click="currentTab = 'orthodontics'" class="img-fluid" alt="">
+                            <img src="../../assets/images/viewusion/orthopedics_logo.png" v-on:click="currentTab = 'orthopedics'" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters py-4" v-if="currentTab == 'orthodontics'">
+                <div class="col-12 viewusion-title orthodonticsBg">
+                    <img src="../../assets/images/viewusion/orthodontics_logo.png" class="img-fluid" alt="">
+                    <div class="viewusion-title-content">
+                        <span>Ортодонтия</span>
+                        <div class="viewusion-title-otherCategories">
+                            <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" v-on:click="currentTab = 'surgery'" class="img-fluid" alt="">
+                            <img src="../../assets/images/viewusion/orthopedics_logo.png" v-on:click="currentTab = 'orthopedics'" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row no-gutters py-4" v-if="currentTab == 'orthopedics'">
+                <div class="col-12 viewusion-title orthopedicsBg">
+                    <img src="../../assets/images/viewusion/orthopedics_logo.png" class="img-fluid" alt="">
+                    <div class="viewusion-title-content">
+                        <span>Ортопедия, <br> протезирование</span>
+                        <div class="viewusion-title-otherCategories">
+                            <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" v-on:click="currentTab = 'surgery'" class="img-fluid" alt="">
+                            <img src="../../assets/images/viewusion/orthodontics_logo.png" v-on:click="currentTab = 'orthodontics'" class="img-fluid" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" v-if="currentTab == 'surgery'">
+                <!--<surgery_item v-for="(item_3d, index) in bank3d_items" :key="index" v-bind:url="item_3d.url" v-bind:itemId="item_3d.id"></surgery_item>-->
             </div>
         </div>
         <div class="container" v-else>
@@ -87,6 +126,7 @@ export default{
 		return {
             endpoint: baseAPI + 'demo_models/',
 			showAbout: false,
+            currentTab: null,
             showViewList: false,
             demoModelsList: [],
 		}
@@ -136,16 +176,55 @@ export default{
     border-bottom: 1px solid #f7941d;
 }
 #viewusion .viewusion-item{
+    cursor: pointer;
+}
+#viewusion .viewusion-item-content{
     font-weight: bold;
     color: #fff;
+    min-height: 180px;
+    padding: 1rem 0 0 1.5rem;
+    font-size: 1.2rem;
 }
-#viewusion .viewusion-item .viewusion-item-1{
+#viewusion .surgeryBg{
     background: #f5989d;
 }
-#viewusion .viewusion-item .viewusion-item-2{
+#viewusion .viewusion-item:hover .surgeryBg{
+    background: #f77a81;
+}
+#viewusion .orthodonticsBg{
     background: #3cb878;
 }
-#viewusion .viewusion-item .viewusion-item-3{
+#viewusion .viewusion-item:hover .orthodonticsBg{
+    background: #1fb768;
+}
+#viewusion .orthopedicsBg{
     background: #bd8cbf;
+}
+#viewusion .viewusion-item:hover .orthopedicsBg{
+    background: #ba66bd;
+}
+#viewusion .viewusion-title{
+    display: flex;
+}
+#viewusion .viewusion-title > img{
+    height: 120px;
+}
+.viewusion-title-content{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 1rem 1rem 1rem 4rem;
+}
+.viewusion-title-otherCategories{
+    display: flex;
+    align-items: center;
+}
+.viewusion-title-otherCategories img{
+    height: calc(120px - 2rem);
+    margin-left: 1rem;
+    cursor: pointer;
 }
 </style>

@@ -16,7 +16,7 @@
         </div>
         <div class="container">
             <div class="row mb-4">
-                <bank3d_item v-for="(item_3d, index) in bank3d_items" :key="index" v-bind:url="item_3d.url"></bank3d_item>
+                <bank3d_item v-for="(item_3d, index) in bank3d_items" :key="index" v-bind:url="item_3d.url" v-bind:itemId="item_3d.id"></bank3d_item>
                 <infinite-loading @infinite="get3dItems" ref="infiniteLoading">
                     <span slot="no-more"></span>
                 </infinite-loading>
