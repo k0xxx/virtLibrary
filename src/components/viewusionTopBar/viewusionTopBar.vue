@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col">
 					<div class="d-flex justify-content-between w-100">
-						<router-link class="viewusionTopBar-btn" :to="{ name: 'library'}">
+						<router-link class="viewusionTopBar-btn" :to="{ name: 'viewusion'}">
 							<img src='../../assets/images/viewusion/viewusionTopBarLogo.png' class="mr-3" alt="">
 							<strong>Демонстрационные модели</strong>
 						</router-link>

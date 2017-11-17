@@ -169,10 +169,10 @@ export default{
 }
 #viewusion .bannerTop{
     display: block;
+    padding-top: 2rem;
     padding-bottom: 1.5rem;
     color: #3e3d3e;
     font-size: 1.7rem;
-    font-weight: lighter;
     border-bottom: 1px solid #f7941d;
 }
 #viewusion .viewusion-item{

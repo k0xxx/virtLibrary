@@ -63,6 +63,9 @@ export default{
 }  
 </script>
 <style>
+#bank3d{
+    padding-top: 46px;
+}
 #bank3d .topTitle{
     background-image: url(../../assets/images/bank3d_background_original.png);
     display: flex;

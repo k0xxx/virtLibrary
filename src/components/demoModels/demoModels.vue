@@ -153,6 +153,9 @@ export default{
 }  
 </script>
 <style>
+#demoModels{
+    padding-top: 46px;
+}
 #demoModels .topTitle{
     background-image: url(../../assets/images/demo_models/demoModel_banner_original.png);
     display: flex;

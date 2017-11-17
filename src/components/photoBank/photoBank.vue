@@ -63,6 +63,9 @@ export default{
 }  
 </script>
 <style>
+#photoBank{
+    padding-top: 46px;
+}
 #photoBank .topTitle{
     background-image: url(../../assets/images/photoBank_background_original.png);
     display: flex;

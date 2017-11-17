@@ -98,6 +98,9 @@ export default{
 }  
 </script>
 <style>
+#styleLibrary{
+    padding-top: 46px;
+}
 #styleLibrary .topTitle{
     background-image: url(../../assets/images/styleLibrary_banner_original.png);
     display: flex;

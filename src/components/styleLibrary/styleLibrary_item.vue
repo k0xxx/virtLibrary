@@ -79,6 +79,9 @@ export default{
 }  
 </script>
 <style>
+#styleLibrary_item{
+    padding-top: 46px;
+}
 #styleLibrary_item .topTitle{
     background: #111;
     width: 100%;
@@ -101,7 +104,7 @@ export default{
 }
 #styleLibraryContent_item{
     background: #000;
-    min-height: calc(100vh - 225px);
+    min-height: calc(100vh - 190px);
 }
 @media (max-width: 768px){
     #styleLibraryContent_item{

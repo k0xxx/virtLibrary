@@ -53,6 +53,9 @@ export default{
 }  
 </script>
 <style>
+#libraryCat{
+    padding-top: 46px;
+}
 #libraryCat .libraryCatLink{
 	display: flex;
 	position: relative;
