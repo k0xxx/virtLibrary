@@ -88,7 +88,7 @@ export default{
 			page: 1,
             endpoint: baseAPI + 'style_library',
             showGlobalLink: false,
-            globalLink: 'https://colleagial.org/files/view/b0c7a957-23fb-4ca0-92d6-ecbcdd12754e/',
+            globalLink: 'https://colleagial.org/getimage/',
 			styles_list: [],
 		}
 	},
