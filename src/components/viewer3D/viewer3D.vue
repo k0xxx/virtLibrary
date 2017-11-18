@@ -72,6 +72,7 @@ export default{
 			materialParams: true,
 			loadingIcon: false,
 			loadingManager: null,
+			animationFrame: null,
 			scene: null,
 			camera: null,
 			controls: null,
@@ -331,7 +332,7 @@ export default{
 		},
 		animate(){
 			// Анимация сцены
-			requestAnimationFrame( this.animate );
+			this.animationFrame = requestAnimationFrame( this.animate );
 			this.renderer.render(this.scene, this.camera);
 			this.controls.update();
 		},
@@ -381,6 +382,10 @@ export default{
 	created: function(){
 		window.addEventListener('resize', this.resize, false);
 		this.get3dStyle();
+	},
+	destroyed: function(){
+		cancelAnimationFrame( this.animationFrame );
+		console.log('animation frame is destroyed');
 	}
 }  
 </script>
