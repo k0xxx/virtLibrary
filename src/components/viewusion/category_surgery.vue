@@ -1,9 +1,9 @@
 <template>
 <div class="container">
 	<div class="row no-gutters py-4">
-        <div class="col-12 viewusion-title surgeryBg">
+        <div class="col-12 flex-column flex-sm-row viewusion-title surgeryBg">
             <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" class="img-fluid" alt="">
-            <div class="viewusion-title-content">
+            <div class="flex-column flex-sm-row pt-3 pl-3 viewusion-title-content">
                 <span>Хирургия и <br> имплантация</span>
                 <div class="viewusion-title-otherCategories">
                     <router-link :to="{ name: 'orthodontics'}">
@@ -20,7 +20,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-3 pb-4" v-for="(item, index) in viewusionItems" :key="index">
+        <div class="col-6 col-md-4 col-lg-3 pb-4" v-for="(item, index) in viewusionItems" :key="index">
             <categoryItem v-bind:type="'viewusion_surgery'" v-bind:id="item.id" v-bind:title="item.title" v-bind:preview="item.preview"></categoryItem>
         </div>
     </div>

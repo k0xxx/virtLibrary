@@ -169,7 +169,6 @@ export default{
     color: #fff;
     font-size: 1.2rem;
     font-weight: bold;
-    padding: 1rem 1rem 1rem 4rem;
 }
 .viewusion-title-otherCategories{
     display: flex;
