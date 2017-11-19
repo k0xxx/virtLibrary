@@ -21,7 +21,7 @@
 <script>
 //import { baseAPI } from '../../config.js';
 export default{
-	name: 'categories_item',
+	name: 'category_all',
 	data() {
 		return {
             

@@ -182,6 +182,28 @@ app.route('/api/3dViewer/:type/:set')
 		res.json({style_3d: query, isMaterialParams: false});
 	})
 
+//viewusion
+app.route('/api/viewusion/surgery') //surgery orthopedics terapy orthodontics
+	.get(function(req, res){
+		let query = [
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+				{id: '1', title: 'stl', preview: 'http://localhost:3900/static/dist/images/surgery_and_implantation_logo.png'},
+			]
+		res.json({category_items: query});
+	});
+
+
 app.get('/*', function(req, res){
 	res.sendFile(path.join(__dirname, './dist/index.html'));
 })

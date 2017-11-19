@@ -1,4 +1,5 @@
 <template>
+<div class="container">
 	<div class="row no-gutters py-4">
         <div class="col-12 viewusion-title terapyBg">
             <img src="../../assets/images/viewusion/terapy_logo.png" class="img-fluid" alt="">
@@ -18,16 +19,41 @@
             </div>
         </div>
     </div>
+    <div class="row pb-4">
+        <div class="col-3" v-for="(item, index) in viewusionItems" :key="index">
+            <categoryItem v-bind:type="'viewusion_terapy'" v-bind:id="item.id" v-bind:title="item.title" v-bind:preview="item.preview"></categoryItem>
+        </div>
+    </div>
+</div>
 </template>
 <script>
 import { baseAPI } from '../../config.js';
+import categoryItem from './category_item.vue'
 export default{
-	name: 'terapy_item',
+	name: 'category_terapy',
 	data() {
 		return {
-            endpoint: baseAPI + 'style_library/',
+            endpoint: baseAPI + 'viewusion/',
+            viewusionItems: [],
 		}
     },
+    components: {categoryItem},
+     methods: {
+        getViewusionItems() {
+			var options = {}
+			this.$http.get(this.endpoint + 'terapy', options).then((response) => {
+                console.log(response.data);
+                if(response.data.category_items){
+                    this.viewusionItems = this.viewusionItems.concat(response.data.category_items);
+                }else{
+                    console.log("We can't items for this category!");
+                }
+		  });
+		},
+    },
+    created: function(){
+        this.getViewusionItems();
+    }
 }  
 </script>
 <style>

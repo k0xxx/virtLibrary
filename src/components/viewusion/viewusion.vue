@@ -15,9 +15,7 @@
                 </div>
             </div>
         </div>
-        <div class="container" v-if="!showAbout">
-            <router-view></router-view>
-        </div>
+        <router-view v-if="!showAbout"></router-view>
         <div class="container" v-else>
             <div class="row pt-3">
                 <div class="col-12">
