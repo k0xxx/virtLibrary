@@ -11,6 +11,9 @@
                     <router-link :to="{ name: 'orthodontics'}">
                         <img src="../../assets/images/viewusion/orthodontics_logo.png" class="img-fluid" alt="">
                     </router-link>
+                    <router-link :to="{ name: 'terapy'}">
+                        <img src="../../assets/images/viewusion/terapy_logo.png" class="img-fluid" alt="">
+                    </router-link>
                 </div>
             </div>
         </div>

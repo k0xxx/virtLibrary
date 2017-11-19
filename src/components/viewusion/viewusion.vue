@@ -152,6 +152,12 @@ export default{
 #viewusion .viewusion-item:hover .orthopedicsBg{
     background: #ba66bd;
 }
+#viewusion .terapyBg{
+    background: #ee3344;
+}
+#viewusion .viewusion-item:hover .terapyBg{
+    background: #ee3311;
+}
 #viewusion .viewusion-title{
     display: flex;
 }

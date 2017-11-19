@@ -16,6 +16,7 @@ import viewusion_categories from './../components/viewusion/categories_item.vue'
 import viewusion_surgery from './../components/viewusion/surgery_item.vue'
 import viewusion_orthodontics from './../components/viewusion/orthodontics_item.vue'
 import viewusion_orthopedics from './../components/viewusion/orthopedics_item.vue'
+import viewusion_terapy from './../components/viewusion/terapy_item.vue'
 
 import viewer3D from '../components/viewer3D/viewer3D.vue'
 
@@ -31,6 +32,7 @@ var router =  new VueRouter({
 				{path: 'surgery', name: 'surgery', component: viewusion_surgery},
 				{path: 'orthodontics', name: 'orthodontics', component: viewusion_orthodontics},
 				{path: 'orthopedics', name: 'orthopedics', component: viewusion_orthopedics},
+				{path: 'terapy', name: 'terapy', component: viewusion_terapy},
 			]
 		},
 		{path: '/file_download/:type/:set', name: 'fileDownload', components: {default: fileDownload}},
