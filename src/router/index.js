@@ -12,6 +12,11 @@ import bank3d from '../components/bank3d/bank3d.vue'
 import fileDownload from './../components/fileDownload/fileDownload.vue'
 import viewusionTopBar from './../components/viewusionTopBar/viewusionTopBar.vue'
 import viewusion from './../components/viewusion/viewusion.vue'
+import viewusion_categories from './../components/viewusion/categories_item.vue'
+import viewusion_surgery from './../components/viewusion/surgery_item.vue'
+import viewusion_orthodontics from './../components/viewusion/orthodontics_item.vue'
+import viewusion_orthopedics from './../components/viewusion/orthopedics_item.vue'
+
 import viewer3D from '../components/viewer3D/viewer3D.vue'
 
 Vue.use(VueRouter);
@@ -20,7 +25,14 @@ var router =  new VueRouter({
 	mode: 'history', 
 	routes: [
 		//{path: '/profile', name: 'profile'},
-		{path: '/viewusion', name: 'viewusion', components: {default: viewusion, topBar: viewusionTopBar}},
+		{path: '/viewusion', components: {default: viewusion, topBar: viewusionTopBar},
+			children: [
+				{path: '/', name: 'viewusion', component: viewusion_categories},
+				{path: 'surgery', name: 'surgery', component: viewusion_surgery},
+				{path: 'orthodontics', name: 'orthodontics', component: viewusion_orthodontics},
+				{path: 'orthopedics', name: 'orthopedics', component: viewusion_orthopedics},
+			]
+		},
 		{path: '/file_download/:type/:set', name: 'fileDownload', components: {default: fileDownload}},
 		{path: '/viewer_3D/:type/:set', name: 'viewer3Dset', components: {default: viewer3D}},
 		{path: '/viewer_3D', name: 'viewer3D', components: {default: viewer3D}},

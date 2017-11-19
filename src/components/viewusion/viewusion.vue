@@ -16,59 +16,7 @@
             </div>
         </div>
         <div class="container" v-if="!showAbout">
-            <div class="row py-4" v-if="!currentTab">
-                <div class="col-6 col-md-4 col-lg-4 viewusion-item" v-on:click="currentTab = 'surgery'">
-                    <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-item-content surgeryBg">Хирургия и <br> имплантация</div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-4 viewusion-item" v-on:click="currentTab = 'orthodontics'">
-                    <img src="../../assets/images/viewusion/orthodontics_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-item-content orthodonticsBg">Ортодонтия</div>
-                </div>
-                <div class="col-6 col-md-4 col-lg-4 viewusion-item" v-on:click="currentTab = 'orthopedics'">
-                    <img src="../../assets/images/viewusion/orthopedics_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-item-content orthopedicsBg">Ортопедия, <br> протезирование</div>
-                </div>
-            </div>
-            <div class="row no-gutters py-4" v-if="currentTab == 'surgery'">
-                <div class="col-12 viewusion-title surgeryBg">
-                    <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-title-content">
-                        <span>Хирургия и <br> имплантация</span>
-                        <div class="viewusion-title-otherCategories">
-                            <img src="../../assets/images/viewusion/orthodontics_logo.png" v-on:click="currentTab = 'orthodontics'" class="img-fluid" alt="">
-                            <img src="../../assets/images/viewusion/orthopedics_logo.png" v-on:click="currentTab = 'orthopedics'" class="img-fluid" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row no-gutters py-4" v-if="currentTab == 'orthodontics'">
-                <div class="col-12 viewusion-title orthodonticsBg">
-                    <img src="../../assets/images/viewusion/orthodontics_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-title-content">
-                        <span>Ортодонтия</span>
-                        <div class="viewusion-title-otherCategories">
-                            <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" v-on:click="currentTab = 'surgery'" class="img-fluid" alt="">
-                            <img src="../../assets/images/viewusion/orthopedics_logo.png" v-on:click="currentTab = 'orthopedics'" class="img-fluid" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row no-gutters py-4" v-if="currentTab == 'orthopedics'">
-                <div class="col-12 viewusion-title orthopedicsBg">
-                    <img src="../../assets/images/viewusion/orthopedics_logo.png" class="img-fluid" alt="">
-                    <div class="viewusion-title-content">
-                        <span>Ортопедия, <br> протезирование</span>
-                        <div class="viewusion-title-otherCategories">
-                            <img src="../../assets/images/viewusion/surgery_and_implantation_logo.png" v-on:click="currentTab = 'surgery'" class="img-fluid" alt="">
-                            <img src="../../assets/images/viewusion/orthodontics_logo.png" v-on:click="currentTab = 'orthodontics'" class="img-fluid" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" v-if="currentTab == 'surgery'">
-                <!--<surgery_item v-for="(item_3d, index) in bank3d_items" :key="index" v-bind:url="item_3d.url" v-bind:itemId="item_3d.id"></surgery_item>-->
-            </div>
+            <router-view></router-view>
         </div>
         <div class="container" v-else>
             <div class="row pt-3">
@@ -126,7 +74,7 @@ export default{
 		return {
             endpoint: baseAPI + 'demo_models/',
 			showAbout: false,
-            currentTab: null,
+            currentTab: this.$route.name,
             showViewList: false,
             demoModelsList: [],
 		}
@@ -150,7 +98,8 @@ export default{
 		},
     },
     created: function(){
-		this.getDemoModels();
+        console.log(this.currentTab);
+        this.getDemoModels();
 	}
 	//components: {newMessageModal},
 	//props: ['contact', 'contactStatus', 'isSubscribe'],
