@@ -177,7 +177,7 @@ app.route('/api/3dViewer/:type/:set')
 			],
 		};
 		var query = styles_3d[req.params.set];
-		res.json({style_3d: query, isMaterialParams: false});
+		res.json({style_3d: query, isMaterialParams: true});
 	})
 
 //viewusion

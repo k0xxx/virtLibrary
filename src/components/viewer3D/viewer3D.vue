@@ -20,10 +20,10 @@
 								</div>
 								<span>{{model.name}}</span>
 								<div class="stlFilesColor" v-if="materialParams">
-									<a href="#"></a>
-									<a href="#"></a>
-									<a href="#"></a>
-									<a href="#"></a>
+									<a href="#" :data-model-name="model.name" :data-color="'#87CEFA'" v-on:click.prevent.stop="selectColor"></a>
+									<a href="#" :data-model-name="model.name" :data-color="'#DB7093'" v-on:click.prevent.stop="selectColor"></a>
+									<a href="#" :data-model-name="model.name" :data-color="'#7851A9'" v-on:click.prevent.stop="selectColor"></a>
+									<a href="#" :data-model-name="model.name" :data-color="'#FF8243'" v-on:click.prevent.stop="selectColor"></a>
 								</div>
 							</li>
 							<li class="stlFileItem" v-for="(group, index) in stlFilesGroups" :key="index">
@@ -206,29 +206,34 @@ export default{
 
 				geometry.computeBoundingSphere();
 				
-				var material = new THREE.MeshStandardMaterial({side:THREE.DoubleSide});
+				if(this.materialParams){ 
+					var material = new THREE.MeshPhongMaterial({color: 0xFF8243, specular: 0x111111, shininess: 30});
+				}else{
+					var material = new THREE.MeshStandardMaterial({color: 0xFF8243, side:THREE.DoubleSide});
 
-				if(stlFile.options != undefined && stlFile.options){
-					switch(stlFile.options.material){
-						/*case 'custom':
+					if(stlFile.options != undefined && stlFile.options){
+						switch(stlFile.options.material){
+							/*case 'custom':
 
-							break;*/
-						case 'bone':
-							material = new THREE.MeshStandardMaterial({color: 0xffefc9, roughness: 0.8, metalness: 0.3, side:THREE.DoubleSide}); //0xfcecc7
-							break;
-						case 'enamel':
-							material = new THREE.MeshStandardMaterial({color: 0xe3dccc, roughness: 0.4, metalness: 0.05, side:THREE.DoubleSide});
-							break;
-						case 'gum':
-							material = new THREE.MeshStandardMaterial({color: 0xac6870, roughness: 0.3, metalness: 0.05, side:THREE.DoubleSide});
-							break;
-						case 'steel':
-							material = new THREE.MeshStandardMaterial({color: 0xe1e1e1, roughness: 0.15, metalness: 0.35, side:THREE.DoubleSide});
-							break;
-						default:
-							material = new THREE.MeshStandardMaterial({color: 0xffffff, roughness: 1, metalness: 1, side:THREE.DoubleSide});
+								break;*/
+							case 'bone':
+								material = new THREE.MeshStandardMaterial({color: 0xffefc9, roughness: 0.8, metalness: 0.3, side:THREE.DoubleSide}); //0xfcecc7
+								break;
+							case 'enamel':
+								material = new THREE.MeshStandardMaterial({color: 0xe3dccc, roughness: 0.4, metalness: 0.05, side:THREE.DoubleSide});
+								break;
+							case 'gum':
+								material = new THREE.MeshStandardMaterial({color: 0xac6870, roughness: 0.3, metalness: 0.05, side:THREE.DoubleSide});
+								break;
+							case 'steel':
+								material = new THREE.MeshStandardMaterial({color: 0xe1e1e1, roughness: 0.15, metalness: 0.35, side:THREE.DoubleSide});
+								break;
+							default:
+								material = new THREE.MeshStandardMaterial({color: 0xffffff, roughness: 1, metalness: 1, side:THREE.DoubleSide});
+						}
 					}
 				}
+				
 
 				var mesh = new THREE.Mesh(geometry, material);
 				mesh.name = stlFile.name;
@@ -252,15 +257,6 @@ export default{
 					this.render();
 				}
 				
-			}, (item) => {
-				/*var progress = item.loaded / item.total;
-				console.log(progress);
-				console.log(item);
-				if(progress == 1){
-					this.loadingIcon = false;
-				}else{
-					this.loadingIcon = true;
-				}*/
 			});
 		},
 		selectOpacityGroup(event){
@@ -303,6 +299,14 @@ export default{
 				editModel.material.opacity = opacity;
 				editModel.visible = true;
 			}
+			this.render();
+		},
+		selectColor(event){
+			this.setColor(event.target.dataset.modelName, event.target.dataset.color);
+		},
+		setColor(modelName, color){
+			var editModel = this.mainGroup.getObjectByName(modelName);
+			editModel.material.color.setStyle( color );
 			this.render();
 		},
 		calcCenter(){

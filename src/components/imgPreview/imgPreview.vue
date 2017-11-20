@@ -3,14 +3,14 @@
 		<transition name="modal">
 			<div class="modal-mask">
 				<div class="modal-wrapper">
-					<div class="modal-container text-center">
-						<div id="closeModalRegister" class="d-flex" @click="$emit('close')">
-							<icon name="times" scale="1"></icon> 
+					
+						<div class="closeImgPreview" @click="$emit('close')">
+							<icon name="times" scale="2"></icon> 
 						</div>
-						<div class="modal-body-register p-100">
+						<div class="modal-body-preview">
 							<img :src="imgOriginal" class="img-fluid" alt="">
 						</div>
-					</div>
+					
 				</div>
 			</div>
 		</transition>
@@ -34,37 +34,22 @@ export default{
 </script>
 <style>
 .modal-mask {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
-  z-index: 9998;
+  z-index: 10000;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
-  display: table;
   transition: opacity .3s ease;
 }
 .modal-wrapper {
-  display: table-cell;
-  vertical-align: middle;
-}
-.modal-container {
-  width: 300px;
-  margin: 0px auto;
-  background-color: #fff;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, .33);
+  width: 600px;
   transition: all .3s ease;
-  font-family: Helvetica, Arial, sans-serif;
-  position: relative;
 } 
-.modal-header-register h3{
-  margin: 0px !important;  
-}
-.modal-header-register{
-  background-color: #329d81;
-  color: white;
-}
 .modal-enter {
   opacity: 0;
 }
@@ -76,11 +61,11 @@ export default{
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
 }
-#closeModalRegister{
-        position: absolute;
-        top: 6px;
-        right: 9px;
-        color: white;
-        cursor: pointer;  
+.closeImgPreview{
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  color: white;
+  cursor: pointer; 
 }    
 </style>

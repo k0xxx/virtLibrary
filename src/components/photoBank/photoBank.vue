@@ -16,7 +16,7 @@
         </div>
         <div class="container">
             <div class="row mb-4">
-                <photoBank_item v-for="(image_item, index) in photoBank_images" :key="index" v-bind:thumbnail="image_item.thumbnail" v-bind:itemId="image_item.id"></photoBank_item>
+                <photoBank_item v-for="(image_item, index) in photoBank_images" :key="index" v-bind:thumbnail="image_item.thumbnail" v-bind:original="image_item.original" v-bind:itemId="image_item.id"></photoBank_item>
                 <infinite-loading @infinite="getPhotos" ref="infiniteLoading">
                     <span slot="no-more"></span>
                 </infinite-loading>
