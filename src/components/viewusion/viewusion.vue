@@ -173,10 +173,25 @@ export default{
 .viewusion-title-otherCategories{
     display: flex;
     align-items: center;
+    justify-content: space-evenly;
+}
+.viewusion-title-otherCategories a{
+    display: block;
+    position: relative;
+}
+.viewusion-title-otherCategories a span.viewusion-title-otherCategories-title{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0px 0px 1px #000;
 }
 .viewusion-title-otherCategories img{
     height: calc(120px - 2rem);
-    margin-left: 1rem;
     cursor: pointer;
 }
 </style>
