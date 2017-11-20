@@ -16,15 +16,13 @@ app.route('/api/photo_bank')
 	.get(function(req, res){
 		let limit = 8;
 		let start = (req.query.page * limit) - limit;
+		let base = 'http://localhost:3900/static/dist/';
 		let photosList = [
-			{url: '/static/dist/demo_models/demoModel_1_original.png'},
-			{url: '/static/dist/demo_models/demoModel_2_original.png'},
-			{url: '/static/dist/demo_models/demoModel_3_original.png'},
-			{url: '/static/dist/demo_models/demoModel_4_original.png'},
-			{url: '/static/dist/demo_models/demoModel_5_original.png'},
-			{url: '/static/dist/demo_models/demoModel_6_original.png'},
-			{url: '/static/dist/demo_models/demoModel_7_original.png'},
-			{url: '/static/dist/demo_models/demoModel_8_original.png'},
+			{id: '1', thumbnail: base + 'demo_models/demoModel_1_original.png'},
+			{id: '2', thumbnail: base + 'demo_models/demoModel_2_original.png'},
+			{id: '3', thumbnail: base + 'demo_models/demoModel_3_original.png'},
+			{id: '4', thumbnail: base + 'demo_models/demoModel_4_original.png'},
+			{id: '5', thumbnail: base + 'demo_models/demoModel_5_original.png'},
 		];
 		let query = photosList.slice(start, limit);
 		res.json({photoBank_images: query});
