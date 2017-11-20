@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="row mb-4">
-                <div class="col-12 col-sm-8 col-md-6 mx-auto">
+                <div class="col-12 col-sm-8 col-md-6 mx-auto mb-3 mb-md-0">
                     <a href="#" class="btn_link bg-green w-100" v-on:click.prevent.stop="demoView">Просмотреть демо модели</a>
                     <ul class="demoViewer" v-if="showViewList">
                         <li v-for="(model, index) in demoModelsList" :key="index">

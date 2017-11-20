@@ -12,6 +12,9 @@
                                         <span class="download-title">{{ file.title }}</span>
                                         <span class="download-fileInfo">{{ file.size | formatBytes }} Download</span>
                                     </div>
+                                    <div class="subDownloadIcon">
+                                        <img src="./../../assets/images/file_download/subDownloadIcon.png" alt="" class="img-fluid">
+                                    </div>
                                 </a>
                             </li>
                         </ul>
@@ -81,14 +84,24 @@ export default{
     padding: 0.5rem 1rem;
     border: 2px solid #817F7E;
     border-radius: 0.75em;
+    position: relative;
 }
 #fileDownload .downloadBlock .downloadBlock-item a:hover{
     background: #eee;
 }
+#fileDownload .downloadBlock .downloadBlock-item a .subDownloadIcon{
+    display: none;
+    position: absolute;
+    top: 25px;
+    right: 1rem;
+}
+#fileDownload .downloadBlock .downloadBlock-item a:hover .subDownloadIcon{
+    display: block;
+}
 #fileDownload .downloadBlock .downloadBlock-item .fileIcon{
     display: block;
     position: relative;
-    width: 57px;
+    width: 60px;
     height: 68px;
     margin-right: 1rem;
     background-size: cover;
