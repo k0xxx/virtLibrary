@@ -47,7 +47,7 @@ export default{
   transition: opacity .3s ease;
 }
 .modal-wrapper {
-  width: 600px;
+  padding: 0 10%;
   transition: all .3s ease;
 } 
 .modal-enter {

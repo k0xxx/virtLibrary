@@ -14,6 +14,7 @@
                                     </div>
                                     <div class="subDownloadIcon">
                                         <img src="./../../assets/images/file_download/subDownloadIcon.png" alt="" class="img-fluid">
+                                        <span class="downloadTooltip">Скачать</span>
                                     </div>
                                 </a>
                             </li>
@@ -96,6 +97,22 @@ export default{
     right: 1rem;
 }
 #fileDownload .downloadBlock .downloadBlock-item a:hover .subDownloadIcon{
+    display: block;
+}
+#fileDownload .downloadBlock .downloadBlock-item a .subDownloadIcon .downloadTooltip{
+    display: none;
+    position: absolute;
+    bottom: -30px;
+    left: -45px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 10px;
+    border: 1px solid #eee;
+    border-radius: 7px;
+    border-top-right-radius: 0;
+}
+#fileDownload .downloadBlock .downloadBlock-item a .subDownloadIcon:hover .downloadTooltip{
     display: block;
 }
 #fileDownload .downloadBlock .downloadBlock-item .fileIcon{
