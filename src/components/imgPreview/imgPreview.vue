@@ -45,11 +45,27 @@ export default{
   height: 100%;
   background-color: rgba(0, 0, 0, .5);
   transition: opacity .3s ease;
+  overflow: auto;
 }
 .modal-wrapper {
-  padding: 0 10%;
   transition: all .3s ease;
-} 
+  height: calc(100vh - 15%);
+  width: calc(100vw - 15%);
+  position: relative;
+}
+.modal-body-preview{
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  object-fit: cover;
+  object-position: center;
+}
+.modal-body-preview img{
+  display: block;
+  margin: 0 auto;
+}
 .modal-enter {
   opacity: 0;
 }
