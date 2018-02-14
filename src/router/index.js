@@ -19,6 +19,7 @@ import viewusion_orthopedics from './../components/viewusion/category_orthopedic
 import viewusion_terapy from './../components/viewusion/category_terapy.vue'
 
 import viewer3D from '../components/viewer3D/viewer3D.vue'
+import viewerVR from '../components/viewerVR/viewerVR.vue'
 
 Vue.use(VueRouter);
 
@@ -38,6 +39,8 @@ var router =  new VueRouter({
 		{path: '/file_download/:type/:set', name: 'fileDownload', components: {default: fileDownload}},
 		{path: '/viewer_3D/:type/:set', name: 'viewer3Dset', components: {default: viewer3D}},
 		{path: '/viewer_3D', name: 'viewer3D', components: {default: viewer3D}},
+		{path: '/viewer_VR/:type/:set/', name: 'viewerVRset', props:true, components: {default: viewerVR}},
+		{path: '/viewer_VR', name: 'viewerVR', components: {default: viewerVR}},
 		{path: '/library', name: 'library', components: {default: library, topBar: libraryTopBar}},
 		{path: '/library/demo_models', name: 'demoModels', components: {default: demoModels, topBar: libraryTopBar}},
 		{path: '/library/style_library/:styleName', name: 'styleLibrary_item', components: {default: styleLibrary_item, topBar: libraryTopBar}},
