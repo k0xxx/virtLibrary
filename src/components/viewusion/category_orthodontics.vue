@@ -30,7 +30,7 @@
     </div>
     <div class="row pb-4">
         <div class="col-6 col-md-4 col-lg-3 pb-4" v-for="(item, index) in viewusionItems" :key="index">
-            <categoryItem v-bind:type="'viewusion_orthodontics'" v-bind:id="item.id" v-bind:title="item.title" v-bind:preview="item.preview"></categoryItem>
+            <categoryItem :category="'viewusion_orthodontics'" :id="item.id" :title="item.title" :preview="item.preview" :type="item.type"></categoryItem>
         </div>
     </div>
 </div>

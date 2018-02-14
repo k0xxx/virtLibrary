@@ -1,6 +1,6 @@
 <template>
 	<div class="viewusion-category-item">
-        <router-link :to="{ name: 'viewer3Dset', params: { type: type, set: id }}">                      
+        <router-link :to="{ name: routeNames[type], params: { category: category, set: id }}">                      
             <img :src="preview" alt="" class="img-fluid">
             <div class="viewusion-category-item-content">
                 {{ title }}
@@ -11,16 +11,23 @@
 <script>
 //import { baseAPI } from '../../config.js';
 export default{
-	name: 'category_item',
+    name: 'category_item',
+    props: ['type', 'id', 'title', 'preview', 'category'],
 	data() {
 		return {
-            
+            routeNames: {
+                '3dfile' : 'viewer3Dset',
+                'vrfile' : 'viewerVRset',
+            }
 		}
     },
-    props: ['type', 'id', 'title', 'preview'],
+    created(){
+        console.log(this.type)
+    }
 
 }  
 </script>
+
 <style>
 .viewusion-category-item{
     position: relative;
