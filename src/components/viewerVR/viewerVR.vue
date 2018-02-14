@@ -59,7 +59,6 @@ export default {
 			slideY: 0,
 			
 			prevSlide: '',
-			//currentSlide: '',
 			
 			imgArray: {},
 			promiseArray: [],
@@ -74,38 +73,11 @@ export default {
         }
 	},
 	computed: {
-		
-		/*currentSlide(){
-			let src = this.viewerFolder + '0_0.jpg' 
-			if(!this.tempSlide) { this.tempSlide = src }
-			
-			if(this.imgArray[this.slideSrc]){
-				src = this.imgArray[this.slideSrc].src;
-				this.tempSlide = src;
-			}else{
-				src = this.tempSlide;
-			}
-			
-			return src
-		}*/
 		slideSrc(){
 			return 'slide_' + this.slideY + '_' + this.slideX;
 		},
 	},
-	/*watch:{
-		mooveList(data){
-			if(data){
-				this.currentSlide = this.imgArray[data[0]].src
-				setTimeout(()=>{
-					this.$delete(this.mooveList, 0)
-				}, 50);
-				
-				console.log(data)
-			}
-		}
-	},*/
-    methods: {
-		
+    methods: {	
 		moover(){
 			let src = this.viewerFolder + '0_0.jpg' 
 			if(!this.prevSlide) { this.prevSlide = src }
@@ -119,8 +91,6 @@ export default {
 			// console.log(src)
 			this.currentSlide = src
 		},
-
-
         init(){
 			let arr = {}
 			for(var y = 0; y<= this.yCount; y++){
@@ -128,7 +98,7 @@ export default {
 					arr[y + '_' + x] = this.viewerFolder + y + '_' + x + '.jpg'
 				}
 			}
-
+			
 			Object.keys(arr).map((key, index) => {
 				this.promiseArray.push(this.imgLoader(key, arr[key]))
 			});
@@ -197,8 +167,6 @@ export default {
 
 			this.nextActionY = this.dragStartY - this.minSwipeY;
 			this.backActionY = this.dragStartY + this.minSwipeY;
-
-            
         },
         handleMouseup(){
 			this.mousedown = false
@@ -277,65 +245,6 @@ export default {
 			}
 
 			this.moover()
-			/*if(eventPosX >= this.backActionX){
-				this.nextActionX = this.nextActionX + this.minSwipeX
-				this.backActionX = this.backActionX + this.minSwipeX
-				if(eventPosY >= this.backActionY - 8){
-					console.log('moove bottom-left')
-					this.nextActionY = this.nextActionY - this.minSwipeY
-					this.backActionY = this.backActionY - this.minSwipeY
-				}else{
-					console.log('moove left')
-				}
-			}
-			/*
-			if(eventPosY <= this.nextActionY){
-				this.nextActionY = this.nextActionY - this.minSwipeY
-				this.backActionY = this.backActionY - this.minSwipeY
-				//this.moveRight()
-				console.log(this.nextActionY + '-' + eventPosY + '-' + this.backActionY)
-				console.log('moveup')
-			}
-
-			if(eventPosY >= this.backActionY){
-				this.nextActionY = this.nextActionY + this.minSwipeY
-				this.backActionY = this.backActionY + this.minSwipeY
-				//this.moveRight()
-				console.log(this.nextActionY + '-' + eventPosY + '-' + this.backActionY)
-				console.log('movedown')
-			}
-			/*if(deltaY >= this.nextActionY/2){
-				console.log('2Y')
-			}
-			if(deltaX >= this.nextActionX){
-				this.nextActionX = this.nextActionX + this.minSwipeX
-				this.backActionX = this.backActionX + this.minSwipeX
-				//this.moveRight()
-				console.log('moveLeft')
-			}
-			if(deltaX <= this.backActionX){
-				this.nextActionX = this.nextActionX - this.minSwipeX
-				this.backActionX = this.backActionX - this.minSwipeX
-				//this.moveLeft()
-				console.log('moveRight')
-			}
-			if(deltaY >= this.nextActionY){
-				this.nextActionY = this.nextActionY + this.minSwipeY
-				this.backActionY = this.backActionY + this.minSwipeY
-				//this.moveDown()
-				console.log('moveDown')
-			}
-			if(deltaY <= this.backActionY){
-				this.nextActionY = this.nextActionY - this.minSwipeY
-				this.backActionY = this.backActionY - this.minSwipeY
-				//this.moveUp()
-				console.log('moveUp')
-			}
-			/*setTimeout(() => {
-    	        this.mooveList.push(this.slideSrc())
-	        }, 20);
-			*/
-			//this.moover()
 		},
 		handleWheel(e){
 			e = e || window.event;
