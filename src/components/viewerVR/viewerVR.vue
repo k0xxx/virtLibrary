@@ -314,7 +314,7 @@ export default {
 	.controls
 		display: flex
 		position: fixed
-		top: 0
+		top: 45px
 		left: 0
 		right: 0
 		align-items: center
@@ -343,9 +343,9 @@ export default {
 			color: #fff
 
 #viewerVR-container
-	height: calc(100vh - 50px)
+	height: calc(100vh - 95px)
 	// overflow-x: hidden
-	margin-top: 50px
+	margin-top: 95px
 	position: relative
 	.viewerVR-container-img
 		display: block
