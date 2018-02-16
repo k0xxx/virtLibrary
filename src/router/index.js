@@ -39,7 +39,7 @@ var router =  new VueRouter({
 		{path: '/file_download/:type/:set', name: 'fileDownload', components: {default: fileDownload}},
 		{path: '/viewer_3D/:category/:set', name: 'viewer3Dset', components: {default: viewer3D}},
 		{path: '/viewer_3D', name: 'viewer3D', components: {default: viewer3D}},
-		{path: '/viewer_VR/:category/:set/', name: 'viewerVRset', props:true, components: {default: viewerVR}},
+		{path: '/viewer_VR/:category/:set/', name: 'viewerVRset', components: {default: viewerVR}},
 		{path: '/viewer_VR', name: 'viewerVR', components: {default: viewerVR}},
 		{path: '/library', name: 'library', components: {default: library, topBar: libraryTopBar}},
 		{path: '/library/demo_models', name: 'demoModels', components: {default: demoModels, topBar: libraryTopBar}},

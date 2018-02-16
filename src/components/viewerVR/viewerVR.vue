@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { baseAPI } from '../../config.js';
 import preloader from './../preloader/preloader.vue'
 import wattermark from './../wattermark/wattermark.vue'
 
@@ -32,7 +33,7 @@ export default {
         return {
 			isLoaded: false,
 			isProgress: 100,
-			endpoint: 'viewer_vr/',
+			endpoint: baseAPI + 'viewer_vr/',
 			VR: null,
 			mousedown: false,
 			dragStartX: 0,
@@ -206,7 +207,7 @@ export default {
 					this.moveDown()
 					this.moveLeft()
 				}else{
-					console.log('moove left')
+					// console.log('moove left')
 					this.moveLeft()
 				}
 			}else if(eventPosX >= this.backActionX){
@@ -240,7 +241,7 @@ export default {
 				this.nextActionY = this.nextActionY + this.minSwipeY
 				this.backActionY = this.backActionY + this.minSwipeY
 				this.moveDown()
-				console.log(this.nextActionY + '-' + eventPosY + '-' + this.backActionY)
+				// console.log(this.nextActionY + '-' + eventPosY + '-' + this.backActionY)
 				// console.log('movedown')
 			}
 
@@ -265,12 +266,12 @@ export default {
 		},
 		loadRemoteFiles(){
 			this.$http.get(this.endpoint + this.$route.params.set).then((response) => {
-				// console.log(response.data);
+				// console.log(response);
 				if(response.data.title){
 					this.viewerTite = response.data.title
 				}
 				if (response.data.folder) {
-					this.viewerFolder = response.data.folder
+					this.viewerFolder = response.data.folder + '/'
 					this.xCount = response.data.frames.x
 					this.yCount = response.data.frames.y
 					this.init();
@@ -304,7 +305,7 @@ export default {
    
     },
     created(){
-        this.loadRemoteFiles();
+		this.loadRemoteFiles();
     }
 }
 </script>
