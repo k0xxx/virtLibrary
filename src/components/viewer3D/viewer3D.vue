@@ -68,7 +68,7 @@ export default{
 	data() {
 		return {
 			endpoint: baseAPI + '3dViewer/',
-			current3dType: this.$route.params.type,
+			current3dType: this.$route.params.category,
 			current3dSet: this.$route.params.set,
 			materialParams: true,
 			loadingIcon: false,
