@@ -59,7 +59,8 @@ import { baseAPI } from '../../config.js';
 var isWebglEnabled = require('detector-webgl');
 
 var THREE = require('three');
-var TrackballControls = require('three-trackballcontrols');
+// var TrackballControls = require('three-trackballcontrols');
+var TrackballControls = require('./TrackballControls');
 var STLLoader = require('three-stl-loader')(THREE)
 
 export default{
@@ -91,42 +92,6 @@ export default{
 		}
 	},
 	methods: {
-		//createLoading(){
-			//const loader = new STLLoader();
-			//remove for production
-			//console.log(loader);
-			/*this.loadingManager = new THREE.LoadingManager();
-			this.loadingManager.onProgress = function(){
-				alert('hi')
-			}
-			console.log(this.loadingManager);
-			/*this.loadingManager.onStart().then((response) => {
-                console.log(response);
-		    });*/
-			/*this.loadingManager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
-				console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-			};*/
-			/*this.loadingManager.onProgress('asd', (geometry) => {
-				console.log('hi');
-			})*/
-			/*this.loadingManager.onStart = function(){
-				console.log('asd');
-			}
-			/*loadingManager.onProgress = function ( item, loaded, total ) {
-				console.log(loadingManager);
-				var progress = loaded / total;
-				console.log(progress);
- 				if(progress == 1){
-					this.loadingIcon = false;
-				}
-			};
-			console.log(loadingManager);*/
-		//},
-		/*onProgress(item, loaded, total){
-			console.log('onProgress');
-			var progress = loaded / total;
-				console.log(progress);
-		},*/
 		init(){
 			//this.createLoading();
 			this.scene = new THREE.Scene();
@@ -141,9 +106,18 @@ export default{
 		},
 		addCamera(){
 			// Обьявление камеры
-			this.camera = new THREE.PerspectiveCamera(45, this.rendererContainer.clientWidth / this.rendererContainer.clientHeight, 1, 1000);
+			let zoom = 0.3
+			let width = this.rendererContainer.clientWidth * zoom
+			let height = this.rendererContainer.clientHeight * zoom
+			this.camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 );
+
+			// Old perspective camera
+			// this.camera = new THREE.PerspectiveCamera(45, width / height, 1, 1000);
+			
 			this.camera.position.set(-75, 75, 75);
 			this.camera.lookAt(this.scene.position);
+
+			this.camera.updateProjectionMatrix();
 		},
 		addAxes(){
 			// Добавление осей координат (Опционально)
@@ -160,7 +134,7 @@ export default{
 		addControls(){
 			// Добавление управления
 			this.controls = new TrackballControls( this.camera, this.rendererContainer );
-			console.log(this.controls);
+			
 			this.controls.rotateSpeed = 4.0;
 			this.controls.zoomSpeed = 4.0;
 			this.controls.panSpeed = 0.8;
@@ -168,7 +142,7 @@ export default{
 			this.controls.noPan = false;
 			this.controls.staticMoving = true;
 			this.controls.dynamicDampingFactor = 0.3;
-			//this.controls.keys = [ 65, 83, 68 ];
+			
 			this.controls.addEventListener( 'change', this.render );
 		},
 		addLight(){
