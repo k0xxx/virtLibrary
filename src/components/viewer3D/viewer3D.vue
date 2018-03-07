@@ -76,6 +76,7 @@ export default{
 			animationFrame: null,
 			scene: null,
 			camera: null,
+			cameraZoom: 0.3,
 			controls: null,
 			directionalLight: null,
 			renderer: null,
@@ -106,9 +107,8 @@ export default{
 		},
 		addCamera(){
 			// Обьявление камеры
-			let zoom = 0.3
-			let width = this.rendererContainer.clientWidth * zoom
-			let height = this.rendererContainer.clientHeight * zoom
+			let width = this.rendererContainer.clientWidth * this.cameraZoom
+			let height = this.rendererContainer.clientHeight * this.cameraZoom
 			this.camera = new THREE.OrthographicCamera( width / - 2, width / 2, height / 2, height / - 2, 1, 1000 );
 
 			// Old perspective camera
@@ -316,9 +316,16 @@ export default{
 		},
 		resize(){
 			if(this.camera && this.renderer) {
-				this.camera.aspect = this.rendererContainer.clientWidth / this.rendererContainer.clientHeight;
-				this.camera.updateProjectionMatrix();
 				this.renderer.setSize(this.rendererContainer.clientWidth, this.rendererContainer.clientHeight);
+				
+				let width = this.rendererContainer.clientWidth * this.cameraZoom
+				let height = this.rendererContainer.clientHeight * this.cameraZoom
+				this.camera.left = width / -2;
+            	this.camera.right = width / 2;
+            	this.camera.top = height / 2;
+            	this.camera.bottom = height / -2;
+
+				this.camera.updateProjectionMatrix();
 			}
 		},
 		toogleControls(){
