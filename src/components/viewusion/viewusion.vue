@@ -17,49 +17,92 @@
         </div>
         <router-view v-if="!showAbout"></router-view>
         <div class="container" v-else>
-            <div class="row pt-3">
-                <div class="col-12">
+            <div class="row py-3">
+                <div class="col-12 pt-3">
                     <p>
-                        3D Демо модели от Pogarskiy Design были разработаны для конструирования дентальных моделей с разнообразными дефектами, 
-                        которые можно использовать для обучения и создания демонстрационных моделей. Демо модели представлены в виде набора файлов 
-                        в формате STL, в котором присутствуют основания моделей верхней и нижней челюсти и съемные элементы с зубами. Все элементы с 
-                        зубами выполнены в вариантах полной анатомии, редуцированной форме и в состоянии обработки зуба под частичную реставрацию. 
-                        Используя любой 3D  редактор, который позволяет работать с STL файлами, можно создать модель с любым дефектом, а так же 
-                        отмоделировать реставрацию или протез. Материализовать данную модель можно, как в разборном виде, так и в цельном, при помощи 
-                        3D печати или фрезеровки.
+                        3D визуализации позволяют наглядно демонстрировать разного рода стоматологические объекты, 
+                        процедуры, аномалии, результаты лечения, а так же виды протезирования и реставраций. Данный 
+                        функционал незаменим для работы с пациентами. Визуализации с высокой реалистичностью и 
+                        детализацией демонстрирует сложные Узкоспециализированные объекты.
+                    </p>
+                    <p class="text-center">
+                        Визуализации представлены двух типов: 3D и VR
                     </p>
                 </div>
-                <div class="col-12 text-center">
-                    <img src="./../../assets/images/demo_models/demoModelAbout-video.png" alt="" class="img-fluid">
+                <div class="col-12 py-3">
+                    <div class="row justify-content-center">
+                        <div class="col-6 col-sm-4 col-md-3 text-center">
+                            <img src="./../../assets/images/demo_models/3d_icon.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-3 text-center">
+                            <img src="./../../assets/images/demo_models/vr_icon.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
                 </div>    
-                <div class="col-12">
+                <div class="col-12 pt-3">
+                    <h4 class="text-center">3D визуализации</h4>
                     <p>
-                        Использование данных шаблонов целесообразно для разработки лабораториями или зубными техниками демонстрационных моделей 
-                        и предлагаемых конструкций. Демо модели имеют классическую форму и легко форматируются в 3D пространстве, что поможет 
-                        избежать подбора моделей с необходимыми клиническими случаями. Так же их можно использовать в процессе обучения и 
-                        практических занятий для моделирования реставраций и тестирования материалов. Данная разработка незаменима для начала 
-                        работы с 3D технологиями, начиная от моделирования и заканчивая 3D печатью.
+                        Данный тип визуализаций состоит из группы 3D моделей, определяющих единый объект. Каждой 
+                        модели присвоены свойства, цвет и степень прозрачности, улучшающие демонстрационные свойства.
+                        Функционал позволяет в онлайн режиме менять прозрачность каждого элемента и демонстрировать 
+                        скрытые элементы используя zoom. 
                     </p>
                 </div>
-                <div class="col-6 col-md-3">
-                    <img src="./../../assets/images/demo_models/demoModel_about_1.png" alt="" class="img-fluid">
+                <div class="col-12 py-3">
+                    <div class="row justify-content-center">
+                        <div class="col-6 col-sm-4 col-md-4 text-center">
+                            <img src="./../../assets/images/demo_models/demo_preview_1.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-4 text-center">
+                            <img src="./../../assets/images/demo_models/demo_preview_2.png" alt="" class="img-fluid">
+                        </div>
+                        <div class="col-6 col-sm-4 col-md-4 text-center">
+                            <img src="./../../assets/images/demo_models/demo_preview_3.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
                 </div>
-                <div class="col-6 col-md-3">
-                    <img src="./../../assets/images/demo_models/demoModel_about_2.png" alt="" class="img-fluid">
-                </div>
-                <div class="col-6 col-md-3">
-                    <img src="./../../assets/images/demo_models/demoModel_about_3.png" alt="" class="img-fluid">
-                </div>
-                <div class="col-6 col-md-3">
-                    <img src="./../../assets/images/demo_models/demoModel_about_4.png" alt="" class="img-fluid">
-                </div>
-                <div class="col-12">
+                <div class="col-12 pt-3">
+                    <h4 class="text-center">Схема управления мышью</h4>
                     <p>
-                        3D Демо модели от Pogarskiy Design позволят воссоздавать огромное количество вариантов дефектов, методом комбинации разных 
-                        элементов. Такой подход может облегчить множество задач зуботехнических лабораторий, стоматологических кабинетов и 
-                        обучающих центров.
+                        Данный тип визуализаций состоит из группы 3D моделей, определяющих единый объект. Каждой 
+                        модели присвоены свойства, цвет и степень прозрачности, улучшающие демонстрационные свойства.
+                        Функционал позволяет в онлайн режиме менять прозрачность каждого элемента и демонстрировать 
+                        скрытые элементы используя zoom. 
                     </p>
-                </div>  
+                </div>
+                <div class="col-12 py-3">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 text-center">
+                            <img src="./../../assets/images/demo_models/control_preview.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 pt-3">
+                    <h4 class="text-center">VR визуализации</h4>
+                    <p>
+                        Данные визуализации позволяют в режиме виртуальной реальности с высокой фотореалистичностью 
+                        демонстрировать объекты с радиусом обзора 360 градусов по горизонтали и 90 по вертикали.
+                    </p>
+                </div>
+                <div class="col-12 py-3">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 text-center">
+                            <img src="./../../assets/images/demo_models/vr_control_preview.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 py-3">
+                    <p class="text-center">
+                        Так же в данной визуализации можно использовать увеличение объекта и передвижение по экрану.
+                    </p>
+                </div>
+                <div class="col-12 py-3">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 text-center">
+                            <img src="./../../assets/images/demo_models/vr_zoom_preview.png" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
